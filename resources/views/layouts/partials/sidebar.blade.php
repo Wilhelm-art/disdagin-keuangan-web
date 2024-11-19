@@ -56,6 +56,15 @@
             <span>Pengeluaran</span></a>
         </li>
 
+        <!-- Nav Item - Laporam -->
+        <li class="nav-item">
+            <a href="{{ route('reports.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-file-alt"></i>
+                <p>Laporan</p>
+            </a>
+        </li>
+
+
         <div class="text-center d-none d-md-inline">
           <br>
           <button class="rounded-sm border-0" id="sidebarToggle"></button>

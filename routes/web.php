@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\IncomesController;
+use App\Http\Controllers\ReportController;
 
 // Home Route
 Route::view('/', 'home.index')->name('home');
@@ -48,6 +49,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('expenses/update/{id}', [ExpensesController::class, 'update'])->name('expenses.update');
     Route::get('expenses/delete/{id}', [ExpensesController::class, 'delete'])->name('expenses.delete');
 });
+
+// laporan
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.exportExcel');
+Route::post('/reports/print', [ReportController::class, 'print'])->name('reports.print');
+
 
 // Dashboard Route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
