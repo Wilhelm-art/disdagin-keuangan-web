@@ -28,14 +28,20 @@ class IncomesController extends Controller
     // Insert Data
     public function insert(Request $request)
     {
-        
-        // Masukkan catatan pendapatan baru ke dalam database.
-        $income = Incomes::insert([
-            'amount'        => $request->amount,
-            'description'   => $request->description,
-            'date'          => $request->date,
-            'id_category'   => $request->id_category,
-            'created_at'    => now(),
+        // Validasi data
+        $request->validate([
+            'amount' => 'required|numeric',
+            'description' => 'required|string|max:255',
+            'date' => 'required|date',
+            'id_category' => 'required|exists:categories,id'
+        ]);
+
+        // Masukkan catatan pendapatan baru ke dalam database
+        $income = Incomes::create([
+            'amount' => $request->amount,
+            'description' => $request->description,
+            'date' => $request->date,
+            'id_category' => $request->id_category,
         ]);
 
         // Notifikasi
@@ -45,6 +51,7 @@ class IncomesController extends Controller
             return redirect()->route('incomes')->with('error', 'Data Gagal Ditambahkan');
         }
     }
+
 
     // Delete Data
     public function delete($id)

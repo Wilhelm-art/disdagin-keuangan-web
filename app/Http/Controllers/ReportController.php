@@ -22,12 +22,14 @@ class ReportController extends Controller
                 $query->whereDate('date', '<=', $request->to_date);
             })
             ->when($request->category_id, function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
+                $query->where('id_category', $request->category_id);
             })
+            ->with('category')
             ->get();
 
         return view('reports.index', compact('categories', 'reports'));
     }
+
 
     public function exportExcel(Request $request)
     {
