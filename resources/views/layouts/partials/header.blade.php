@@ -2,7 +2,7 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      @include('layouts.partials.sidebar');
+      @include('layouts.partials.sidebar')
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
