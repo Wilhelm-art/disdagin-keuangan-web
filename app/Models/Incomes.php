@@ -79,4 +79,10 @@ class Incomes extends Model
         }
         return $total_incomes;
     }
+
+    public function balance()
+    {
+        return $this->hasOne(Balance::class, 'foreign_key', 'local_key');
+    }
+
 }

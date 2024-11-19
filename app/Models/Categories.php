@@ -6,14 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model
 {
-    // Inisialisasi Table
-    protected $table = 'categories';
-    public $timestamps = false;
+     // Inisialisasi Table
+     protected $table = 'categories';
+     public $timestamps = false;
 
-    // Mass Assignment
-    protected $fillable = [
-        'name_category'
-    ];
+     // Primary key
+     protected $primaryKey = 'id_category';
+
+     // Mass Assignment
+     protected $fillable = [
+         'name_category'
+     ];
 
     // Get All Data
     public static function getAll()

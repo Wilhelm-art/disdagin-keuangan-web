@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Incomes;
-use App\Models\Balance;
 use App\Models\Categories;
 
 class IncomesController extends Controller
@@ -31,9 +30,9 @@ class IncomesController extends Controller
         // Validasi data
         $request->validate([
             'amount' => 'required|numeric',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|m ax:255',
             'date' => 'required|date',
-            'id_category' => 'required|exists:categories,id'
+            'id_category' => 'required|exists:categories,id_category',
         ]);
 
         // Masukkan catatan pendapatan baru ke dalam database

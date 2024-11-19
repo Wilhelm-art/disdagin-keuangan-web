@@ -39,12 +39,12 @@
           @foreach($expenses as $expense)
           <tr>
             <td>{{ $expense->date }}</td>
-            <td>{{ $expense->amount }}</td>
+            <td>{{ number_format($expense->amount, 0, ',', '.') }}</td>
             <td>
               @foreach($categories as $category)
-              @if($category->id_category == $expense->id_category)
-              {{ $category->name_category }}
-              @endif
+                @if($category->id_category == $expense->id_category)
+                    <span class="badge badge-pill badge-danger">{{ $category->name_category }}</span>
+                @endif
               @endforeach
             </td>
             <td>{{ $expense->description }}</td>

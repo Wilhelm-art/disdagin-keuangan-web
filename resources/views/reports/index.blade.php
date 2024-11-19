@@ -17,10 +17,10 @@
             </div>
             <div class="col-md-3">
                 <label>Kategori:</label>
-                <select name="category_id" class="form-control">
+                <select name="it_category" class="form-control">
                     <option value="">Semua</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}" {{ request('id_category') == $category->id ? 'selected' : '' }}>
                             {{ $category->name_category }}
                         </option>
                     @endforeach
