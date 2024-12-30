@@ -40,6 +40,18 @@ class ExpensesController extends Controller
             return redirect('/expenses')->with(['success' => $request->description . 'Telah ditambahkan']);
         } else {
             return redirect('/expenses')->with(['error' => 'Terjadi kesalahan']);
-        }    
+        }
+    }
+
+    public function destroy($id)
+    {
+        // Memanggil method deleteData di model
+        $result = Expenses::deleteData($id);
+
+        if ($result) {
+            return redirect()->route('expenses')->with('success', 'Pengeluaran berhasil dihapus!');
+        } else {
+            return redirect()->route('expenses')->with('error', 'Data pengeluaran tidak ditemukan.');
+        }
     }
 }

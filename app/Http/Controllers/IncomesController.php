@@ -53,16 +53,14 @@ class IncomesController extends Controller
 
 
     // Delete Data
-    public function delete($id)
+    public function destroy($id)
     {
-        // Hapus data pendapatan berdasarkan id
-        $income = Incomes::deleteData($id);
-
-        // Notifikasi
-        if ($income) {
-            return redirect()->route('incomes')->with('success', 'Data Berhasil Dihapus');
-        } else {
-            return redirect()->route('incomes')->with('error', 'Data Gagal Dihapus');
+        if (Incomes::deleteData($id)) {
+            return redirect()->route('incomes')->with('success', 'Data pemasukan berhasil dihapus.');
         }
+
+        return redirect()->route('incomes')->with('error', 'Data pemasukan tidak ditemukan.');
     }
+
+
 }

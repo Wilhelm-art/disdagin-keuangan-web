@@ -8,13 +8,20 @@
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                        <div class="row align-items-center">
+                            <!-- Logo Section -->
+                            <div class="col-lg-5 text-center">
+                                <img src="{{ asset('img/Disdagin.png') }}" alt="Logo"
+                                     style="max-width: 100%; display: block;">
+                            </div>
+                            <!-- Form Section -->
+                            <div class="col-lg-7">
                                 <div class="p-5">
+                                    <!-- Login Title -->
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ __('Login') }}</h1>
                                     </div>
+                                    <!-- Login Form -->
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
 
@@ -28,6 +35,7 @@
                                             </span>
                                             @enderror
                                         </div>
+                                        <!-- Password -->
                                         <div class="form-group">
                                             <label for="password" class="col-form-label text-md-right">
                                                 {{ __('Password') }}
@@ -39,6 +47,7 @@
                                             </span>
                                             @enderror
                                         </div>
+                                        <!-- Remember Me -->
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -48,10 +57,10 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        <!-- Submit Button -->
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             {{ __('Login') }}
                                         </button>
-
                                     </form>
                                     <hr>
                                     @if (Route::has('password.request'))
@@ -71,4 +80,5 @@
         </div>
     </div>
 </body>
+
 @endsection

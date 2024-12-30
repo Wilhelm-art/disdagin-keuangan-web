@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expenses extends Model
 {
+    use HasFactory;
+
     // Inisialisasi Tabel
     protected $table = 'expenses';
+    protected $primaryKey = 'id_expense'; // Nama kolom primary key
     public $timestamps = false;
 
     // Fill Tabel
@@ -72,5 +75,17 @@ class Expenses extends Model
 
         // Return total_expenses
         return $total_expenses;
+    }
+
+    // Hapus Data Berdasarkan ID
+    public static function deleteData($id): bool
+    {
+        $expense = self::find($id); // Mencari data berdasarkan ID
+
+        if ($expense) {
+            return $expense->delete(); // Hapus data jika ditemukan
+        }
+
+        return false; // Jika tidak ditemukan, kembalikan false
     }
 }

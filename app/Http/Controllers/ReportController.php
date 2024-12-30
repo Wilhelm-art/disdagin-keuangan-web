@@ -15,17 +15,17 @@ class ReportController extends Controller
         $categories = Categories::all();
 
         $reports = Incomes::query()
-            ->when($request->from_date, function ($query) use ($request) {
-                $query->whereDate('date', '>=', $request->from_date);
-            })
-            ->when($request->to_date, function ($query) use ($request) {
-                $query->whereDate('date', '<=', $request->to_date);
-            })
-            ->when($request->category_id, function ($query) use ($request) {
-                $query->where('id_category', $request->category_id);
-            })
-            ->with('category')
-            ->get();
+        ->when($request->from_date, function ($query) use ($request) {
+            $query->whereDate('date', '>=', $request->from_date);
+        })
+        ->when($request->to_date, function ($query) use ($request) {
+            $query->whereDate('date', '<=', $request->to_date);
+        })
+        ->when($request->category_id, function ($query) use ($request) {
+            $query->where('id_category', $request->id_category);
+        })
+        ->with('category') // Pastikan relasi sudah ada
+        ->get();
 
         return view('reports.index', compact('categories', 'reports'));
     }

@@ -7,82 +7,67 @@ use Illuminate\Database\Eloquent\Model;
 
 class Incomes extends Model
 {
-    // Inisialisasi Tabel
-    protected $table = 'incomes';
-    protected $secondaryTable = 'balance';
+    use HasFactory;
 
-    // Fill Tabel
+    // Inisialisasi Tabel
+    protected $table = 'incomes'; // Nama tabel
+
+    // Inisialisasi Primary Key
+    protected $primaryKey = 'id_income'; // Primary key tabel
+
+    // Disable Timestamps jika tidak menggunakan kolom created_at/updated_at
     public $timestamps = false;
+
+    // Fillable: Kolom yang dapat diisi secara massal
     protected $fillable = [
-        'amount', 'description', 'date', 'id_category', 'created_at'
+        'amount', 'description', 'date', 'id_category', 'created_at',
     ];
+
+    // Relasi ke Categories
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'id_category', 'id_category');
+    }
 
     // Get All Data
     public static function getAll()
     {
-        return Incomes::all();
+        return self::all(); // Gunakan self untuk merujuk model saat ini
     }
 
     // Get Data by ID
     public static function getById($id)
     {
-        return Incomes::where('id_income', $id)->first();
+        return self::find($id); // find menggunakan primary key secara otomatis
     }
 
     // Insert Data
     public static function insert($data)
     {
-        // Ambil amount dari $data untuk dijadikan variabel baru
-        // Tambahkan ke tabel balance
-        $amount = $data['amount'];
-
-        // Tambahkan description ke tabel balance
-        $description = "Pemasukan";
-
-        // Tambahkan data ke tabel balance
-        $balance = Balance::create([
-            'amount' => $amount,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        // Jika penambahan data ke tabel balance berhasil
-        // lanjutkan untuk menambahkan data ke tabel Incomes
-        if ($balance) {
-            // Tambahkan data ke tabel Incomes
-            $income = Incomes::create($data);
-            return $income;
-        }
-
-        // Jika penambahan data ke tabel balance gagal, return false
-        return false;
+        return self::create($data); // create menggunakan fillable
     }
 
     // Update Data
     public static function updateData($id_income, $data)
     {
-        return Incomes::where('id_income', $id_income)->update($data);
+        return self::where('id_income', $id_income)->update($data);
     }
 
     // Delete Data
-    public static function deleteData($id)
+    public static function deleteData($id): bool
     {
-        return Incomes::where('id_income', $id)->delete();
+        $income = self::find($id); // Mencari data berdasarkan primary key
+
+        if ($income) {
+            return $income->delete(); // Menghapus data jika ditemukan
+        }
+
+        return false; // Jika data tidak ditemukan
     }
 
     // Total Incomes
     public static function totalIncomes()
     {
-        $incomes = Incomes::getAll();
-        $total_incomes = 0;
-        foreach ($incomes as $income) {
-            $total_incomes += $income->amount;
-        }
-        return $total_incomes;
+        return self::sum('amount'); // Menggunakan query builder untuk sum kolom
     }
-
-    public function balance()
-    {
-        return $this->hasOne(Balance::class, 'foreign_key', 'local_key');
-    }
-
 }

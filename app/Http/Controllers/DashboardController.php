@@ -15,16 +15,10 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // Ambil total pemasukan dari model
+        // Ambil total pemasukan, pengeluaran, balance, dan kategori
         $total_incomes = Incomes::totalIncomes();
-
-        // Ambil total balance dari model
         $total_balance = Balance::totalBalance();
-
-        // Ambil total kategori dari model
         $total_categories = Categories::totalCategories();
-
-        // Ambil total pengeluaran dari model
         $total_expenses = Expenses::totalExpenses();
 
         // Ambil semua data pemasukan dan pengeluaran dari model balance
@@ -33,16 +27,45 @@ class DashboardController extends Controller
         // Ambil semua data kategori dari model categories
         $categories = Categories::getAll();
 
+        // Ambil data pemasukan per bulan
+        $monthlyIncomes = Incomes::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
+            ->groupBy('month', 'year')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        // Ambil data pengeluaran per bulan
+        $monthlyExpenses = Expenses::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
+            ->groupBy('month', 'year')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        // Ambil data pemasukan dan pengeluaran per tahun
+        $yearlyIncomes = Incomes::selectRaw('YEAR(date) as year, SUM(amount) as total')
+            ->groupBy('year')
+            ->orderBy('year', 'asc')
+            ->get();
+
+        $yearlyExpenses = Expenses::selectRaw('YEAR(date) as year, SUM(amount) as total')
+            ->groupBy('year')
+            ->orderBy('year', 'asc')
+            ->get();
+
         $data = [
             'total_incomes' => $total_incomes,
             'total_balance' => $total_balance,
             'total_categories' => $total_categories,
             'total_expenses' => $total_expenses,
             'incomesAndExpenses' => $incomesAndExpenses,
-            'categories' => $categories
+            'categories' => $categories,
+            'monthlyIncomes' => $monthlyIncomes,
+            'monthlyExpenses' => $monthlyExpenses,
+            'yearlyIncomes' => $yearlyIncomes,
+            'yearlyExpenses' => $yearlyExpenses,
         ];
 
-        // Kirim data total pemasukan ke view
         return view('dashboard/index', $data);
     }
+
 }

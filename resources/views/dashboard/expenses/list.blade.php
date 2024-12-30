@@ -5,7 +5,6 @@
   <div class="row">
     <div class="table-responsive shadow-sm p-3">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
         <a href="{{ route('expenses.addPage') }}" class="btn btn-sm btn-primary mb-3">
           <i class="fas fa-plus"></i>
           Tambah Pengeluaran
@@ -33,6 +32,7 @@
             <th scope="col">Jumlah</th>
             <th scope="col">Kategori</th>
             <th scope="col">Deskripsi</th>
+            <th scope="col">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -48,24 +48,30 @@
               @endforeach
             </td>
             <td>{{ $expense->description }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteexpenseModal{{ $expense->id_expense }}">
+                <i class="fas fa-trash"></i> Hapus
+              </button>
+            </td>
           </tr>
           @endforeach
         </tbody>
       </table>
     </div>
 
+    <!-- Modal Hapus -->
     @foreach($expenses as $expense)
-    <div class="modal fade" id="deleteexpenseModal{{ $expense->id_expense }}" tabindex="-1" aria-labelledby="deleteexpenseModal{{ $expense->id_expense }}" aria-hidden="true">
+    <div class="modal fade" id="deleteexpenseModal{{ $expense->id_expense }}" tabindex="-1" aria-labelledby="deleteexpenseModalLabel{{ $expense->id_expense }}" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteexpenseModal{{ $expense->id_expense }}">Hapus Data Kategori</h5>
+            <h5 class="modal-title" id="deleteexpenseModalLabel{{ $expense->id_expense }}">Hapus Data Pengeluaran</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            Apakah Anda yakin ingin menghapus kategori {{ $expense->name_expense }}?
+            Apakah Anda yakin ingin menghapus pengeluaran "<strong>{{ $expense->description }}</strong>" dengan jumlah {{ number_format($expense->amount, 0, ',', '.') }}?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -37,4 +38,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function authenticated(Request $request, $user)
+    {
+        session()->flash('welcome_message', 'Selamat Datang! Anda telah masuk sebagai admin.');
+        return redirect()->intended('/dashboard');
+    }
+
+
 }

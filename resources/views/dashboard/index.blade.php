@@ -7,7 +7,14 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
   </div>
 
-  <!-- Content Row -->
+  @if (session('welcome_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('welcome_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+  {{-- <!-- Content Row -->
   <div class="row">
     <div class="col-12">
       <div class="alert border-left-secondary shadow alert-warning alert-dismissible fade shadow show" role="alert">
@@ -19,11 +26,11 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   <!-- Content Row -->
   <div class="row">
-    <!-- Balance Card Example -->
+    {{-- <!-- Balance Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
@@ -42,7 +49,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Income Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -74,12 +81,8 @@
               <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                 Expense
               </div>
-              <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                    {{ number_format($total_expenses, 0, ',', '.') }}
-                  </div>
-                </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                {{ number_format($total_expenses, 0, ',', '.') }}
               </div>
             </div>
             <div class="col-auto">
@@ -112,7 +115,31 @@
     </div>
   </div>
 
-  <!-- Table ( Income, Expanse ) Content -->
+  <!-- Grafik Content -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-secondary">Grafik Pemasukan dan Pengeluaran Bulanan</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="monthlyChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-secondary">Grafik Pemasukan dan Pengeluaran Tahunan</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="yearlyChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table (Income, Expense) Content -->
   <div class="row">
     <div class="col-12 col-sm-12">
       <div class="table">
@@ -125,8 +152,6 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <!-- <th>No</th>
-                    <th>Jenis</th> -->
                     <th>Amount</th>
                     <th>Description</th>
                     <th>Date</th>
@@ -134,16 +159,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($incomesAndExpenses as $index => $incomeAndExpense)
+                  @foreach($incomesAndExpenses as $incomeAndExpense)
                   <tr>
-                    <!-- <td>{{ $index + 1 }}</td>
-                    <td>
-                      @if($incomeAndExpense instanceof App\Incomes)
-                      <span class="badge badge-success">Pemasukan</span>
-                      @elseif($incomeAndExpense instanceof App\Expenses)
-                      <span class="badge badge-danger">Pengeluaran</span>
-                      @endif
-                    </td> -->
                     <td>{{ number_format($incomeAndExpense->amount, 0, ',', '.') }}</td>
                     <td>{{ $incomeAndExpense->description }}</td>
                     <td>{{ $incomeAndExpense->date }}</td>
@@ -165,5 +182,78 @@
     </div>
   </div>
 
+    <!-- Auto-dismiss alert script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                let alert = document.querySelector('.alert');
+                if (alert) {
+                    alert.classList.add('fade-out');
+                    setTimeout(() => alert.remove(), 500); // Remove element after fade effect
+                }
+            }, 3000); // 2 seconds
+        });
+    </script>
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  let monthlyIncomes = @json($monthlyIncomes);
+  let monthlyExpenses = @json($monthlyExpenses);
+  let yearlyIncomes = @json($yearlyIncomes);
+  let yearlyExpenses = @json($yearlyExpenses);
+
+  const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+  const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
+
+  // Monthly Chart
+  new Chart(monthlyCtx, {
+    type: 'bar',
+    data: {
+      labels: monthlyIncomes.map(item => item.month),
+      datasets: [
+        {
+          label: 'Income',
+          data: monthlyIncomes.map(item => item.total),
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        },
+        {
+          label: 'Expense',
+          data: monthlyExpenses.map(item => item.total),
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        }
+      ]
+    }
+  });
+
+  // Yearly Chart
+  new Chart(yearlyCtx, {
+    type: 'line',
+    data: {
+      labels: yearlyIncomes.map(item => item.year),
+      datasets: [
+        {
+          label: 'Income',
+          data: yearlyIncomes.map(item => item.total),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          fill: true
+        },
+        {
+          label: 'Expense',
+          data: yearlyExpenses.map(item => item.total),
+          borderColor: 'rgba(255, 99, 132, 1)',
+          fill: true
+        }
+      ]
+    }
+  });
+</script>
 @endsection

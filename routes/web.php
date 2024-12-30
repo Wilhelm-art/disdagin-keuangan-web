@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('incomes/insert', [IncomesController::class, 'insert'])->name('incomes.insert');
     Route::get('incomes/edit/{id}', [IncomesController::class, 'editPage'])->name('incomes.editPage');
     Route::put('incomes/update/{id}', [IncomesController::class, 'update'])->name('incomes.update');
-    Route::get('incomes/delete/{id}', [IncomesController::class, 'delete'])->name('incomes.delete');
+    Route::get('incomes/delete/{id}', [IncomesController::class, 'destroy'])->name('incomes.delete');
 });
 
 // Expenses
@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('expenses/insert', [ExpensesController::class, 'insert'])->name('expenses.insert');
     Route::get('expenses/edit/{id}', [ExpensesController::class, 'editPage'])->name('expenses.editPage');
     Route::put('expenses/update/{id}', [ExpensesController::class, 'update'])->name('expenses.update');
-    Route::get('expenses/delete/{id}', [ExpensesController::class, 'delete'])->name('expenses.delete');
+    Route::get('expenses/delete/{id}', [ExpensesController::class, 'destroy'])->name('expenses.delete');
 });
 
 // laporan
