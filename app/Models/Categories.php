@@ -6,51 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model
 {
-     // Inisialisasi Table
-     protected $table = 'categories';
-     public $timestamps = false;
+    // Inisialisasi Table
+    protected $table = 'categories';
 
-     // Primary key
-     protected $primaryKey = 'id_category';
+    // Primary key
+    protected $primaryKey = 'id_category';
 
-     // Mass Assignment
-     protected $fillable = [
-         'name_category'
-     ];
+    // Mass Assignment
+    protected $fillable = [
+        'name_category'
+    ];
 
-    // Get All Data
-    public static function getAll()
-    {
-        return Categories::all();
-    }
+    // Disable timestamps if the table does not have created_at and updated_at
+    public $timestamps = false;
 
-    // Get Data by ID
-    public static function getById($id)
-    {
-        return Categories::where('id_category', $id)->first();
-    }
-
-    // Insert Data
-    public static function insert($data)
-    {
-        return Categories::create($data);
-    }
-
-    // Update Data
-    public static function updateData($id_category, $data)
-    {
-        return Categories::where('id_category', $id_category)->update($data);
-    }
-
-    // Delete Data
-    public static function deleteData($id)
-    {
-        return Categories::where('id_category', $id)->delete();
-    }
-
-    // Get Total Data
+    // Get Total Data (count)
     public static function totalCategories()
     {
-        return Categories::count();
+        return self::count();  // Direct count method
+    }
+
+    // Get All Categories (Optional method)
+    public static function getAll()
+    {
+        return self::all();  // Return all records from the 'categories' table
     }
 }

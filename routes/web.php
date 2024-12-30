@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\IncomesController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BudgetController;
+
 
 // Home Route
 Route::view('/', 'home.index')->name('home');
@@ -53,13 +55,25 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // laporan
-Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-Route::post('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.exportExcel');
-Route::post('/reports/print', [ReportController::class, 'print'])->name('reports.print');
+Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+Route::get('reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.exportPdf');
+Route::get('reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.exportExcel');
+Route::get('reports/print', [ReportController::class, 'print'])->name('reports.print');
+
+
+// Budget
+Route::resource('budgets', BudgetController::class);
 
 
 // Dashboard Route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+//PDF & Excel
+Route::get('/reports/pdf', [ReportController::class, 'exportPdf'])->name('reports.pdf');
+Route::get('/reports/excel', [ReportController::class, 'exportExcel'])->name('reports.excel');
+
+// Route untuk mendapatkan sisa saldo kategori
+Route::get('/categories/{id}/remaining-balance', [ExpensesController::class, 'getRemainingBalance'])->name('categories.remaining-balance');
 
 // Auth Routes
 Auth::routes();

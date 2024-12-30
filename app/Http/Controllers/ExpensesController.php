@@ -5,53 +5,89 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Expenses;
 use App\Models\Categories;
+use App\Models\Incomes;
 
 class ExpensesController extends Controller
 {
     // Halaman List Pengeluaran
     public function index()
     {
-        $expenses = Expenses::getAll();
-        $categories = Categories::getAll();
+        // Gunakan eager loading untuk relasi kategori
+        $expenses = Expenses::with('category')->get();
+        $categories = Categories::all(); // Ambil semua kategori
         return view('dashboard.expenses.list', compact('expenses', 'categories'));
     }
 
     // Halaman Tambah Pengeluaran
     public function addPage()
     {
-        $categories = Categories::getAll();
+        $categories = Categories::all(); // Ambil semua kategori
         return view('dashboard.expenses.add', compact('categories'));
     }
 
     // Tambah Pengeluaran
     public function insert(Request $request)
     {
-        // Insert data ke table
-        $expense = Expenses::insert([
-            'amount'        => $request->amount,
-            'description'   => $request->description,
-            'date'          => $request->date,
-            'id_category'   => $request->id_category,
-            'created_at'    => date('Y-m-d H:i:s')
+        // Validasi input
+        $request->validate([
+            'id_category' => 'required|exists:categories,id_category',
+            'date' => 'required|date',
+            'amount' => 'required|numeric|min:1',
+            'description' => 'nullable|string|max:255',
         ]);
 
-        // Cek jika berhasil
-        if ($expense) {
-            return redirect('/expenses')->with(['success' => $request->description . 'Telah ditambahkan']);
-        } else {
-            return redirect('/expenses')->with(['error' => 'Terjadi kesalahan']);
+        // Ambil data kategori dan hitung saldo
+        $id_category = $request->id_category;
+        $amount = $request->amount;
+
+        $totalIncome = Incomes::where('id_category', $id_category)->sum('amount'); // Total pemasukan
+        $totalExpense = Expenses::where('id_category', $id_category)->sum('amount'); // Total pengeluaran
+        $remainingBalance = $totalIncome - $totalExpense; // Saldo tersisa
+
+        // Cek jika saldo mencukupi
+        if ($amount > $remainingBalance) {
+            return redirect()->back()->withErrors([
+                'amount' => 'Saldo tidak mencukupi untuk pengeluaran ini.',
+            ])->withInput();
         }
+
+        // Tambahkan data pengeluaran baru
+        Expenses::create([
+            'amount' => $request->amount,
+            'description' => $request->description,
+            'date' => $request->date,
+            'id_category' => $request->id_category,
+            'created_at' => now(),
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('expenses')->with('success', 'Pengeluaran berhasil ditambahkan!');
     }
 
+    // Hapus Pengeluaran
     public function destroy($id)
     {
-        // Memanggil method deleteData di model
-        $result = Expenses::deleteData($id);
-
-        if ($result) {
+        $expense = Expenses::find($id); // Cari pengeluaran berdasarkan ID
+        if ($expense) {
+            $expense->delete(); // Hapus data pengeluaran
             return redirect()->route('expenses')->with('success', 'Pengeluaran berhasil dihapus!');
-        } else {
-            return redirect()->route('expenses')->with('error', 'Data pengeluaran tidak ditemukan.');
         }
+
+        return redirect()->route('expenses')->with('error', 'Data pengeluaran tidak ditemukan.');
+    }
+
+    // Tambahkan ke ExpensesController
+    public function getRemainingBalance($id_category)
+    {
+        // Hitung total pemasukan dan pengeluaran berdasarkan kategori
+        $totalIncome = Incomes::where('id_category', $id_category)->sum('amount');
+        $totalExpense = Expenses::where('id_category', $id_category)->sum('amount');
+        $remainingBalance = $totalIncome - $totalExpense;
+
+        // Return data dalam format JSON
+        return response()->json([
+            'success' => true,
+            'remaining_balance' => $remainingBalance,
+        ]);
     }
 }

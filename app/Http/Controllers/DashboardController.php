@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Incomes;
 use App\Models\Expenses;
 use App\Models\Balance;
 use App\Models\Categories;
+use App\Models\Budget; // Pastikan model Budget sudah ada
 
 class DashboardController extends Controller
 {
@@ -15,11 +17,12 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // Ambil total pemasukan, pengeluaran, balance, dan kategori
+        // Ambil total pemasukan, pengeluaran, balance, kategori, dan anggaran
         $total_incomes = Incomes::totalIncomes();
         $total_balance = Balance::totalBalance();
         $total_categories = Categories::totalCategories();
         $total_expenses = Expenses::totalExpenses();
+        $total_budget = Budget::sum('total_amount'); // Ambil total anggaran
 
         // Ambil semua data pemasukan dan pengeluaran dari model balance
         $incomesAndExpenses = Balance::getAllIncomesAndExpenses();
@@ -52,11 +55,13 @@ class DashboardController extends Controller
             ->orderBy('year', 'asc')
             ->get();
 
+        // Data yang dikirim ke view
         $data = [
             'total_incomes' => $total_incomes,
             'total_balance' => $total_balance,
             'total_categories' => $total_categories,
             'total_expenses' => $total_expenses,
+            'total_budget' => $total_budget, // Kirim total budget ke view
             'incomesAndExpenses' => $incomesAndExpenses,
             'categories' => $categories,
             'monthlyIncomes' => $monthlyIncomes,
@@ -67,5 +72,4 @@ class DashboardController extends Controller
 
         return view('dashboard/index', $data);
     }
-
 }

@@ -7,7 +7,7 @@
             <i class="fas fa-money-bill-wave"></i>
           </div>
           <div class="sidebar-brand-text mx-3">
-            @yield('title', 'PayNote')
+            @yield('title', 'Disdagin')
           </div>
         </a>
 
@@ -17,7 +17,7 @@
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
           <a class="nav-link" href="/dashboard">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa fa-home"></i>
             <span>Dashboard</span></a>
         </li>
 
@@ -37,33 +37,40 @@
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{route('categories')}}">Category</a>
+              <a class="fa fa-tags" href="{{route('categories')}}">Category</a>
             </div>
           </div>
+        </li>
+
+        <!-- Nav Item - Budgets -->
+        <li class="nav-item">
+            <a href="{{ route('budgets.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-wallet"></i>
+                <span>Budget</span>
+            </a>
         </li>
 
         <!-- Nav Item - Pemasukan -->
         <li class="nav-item">
           <a class="nav-link" href="{{route('incomes')}}">
-            <i class="fas fa-fw fa-download"></i>
+            <i class="fas fa-arrow-down"></i>
             <span>Pemasukan</span></a>
         </li>
 
         <!-- Nav Item - Pegeluaran -->
         <li class="nav-item">
           <a class="nav-link" href="{{route('expenses')}}">
-            <i class="fas fa-fw fa-external-link-alt"></i>
+            <i class="fa fa-arrow-up"></i>
             <span>Pengeluaran</span></a>
         </li>
 
-        <!-- Nav Item - Laporam -->
+        <!-- Nav Item - Laporan -->
         <li class="nav-item">
             <a href="{{ route('reports.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-file-alt"></i>
+                <i class="nav-icon fa fa-chart-bar"></i>
                 <span>Laporan</span>
             </a>
         </li>
-
 
         <div class="text-center d-none d-md-inline">
           <br>

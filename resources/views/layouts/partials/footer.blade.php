@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; 2024 - PayNote</span>
+      <span>&copy; 2024 - Disdagin Kota Bandung</span>
     </div>
   </div>
 </footer>

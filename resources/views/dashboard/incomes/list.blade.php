@@ -35,6 +35,7 @@
             <th scope="col">Tanggal</th>
             <th scope="col">Jumlah</th>
             <th scope="col">Kategori</th>
+            <th scope="col">Anggaran</th>
             <th scope="col">Deskripsi</th>
             <th scope="col">Aksi</th>
           </tr>
@@ -50,6 +51,14 @@
               <span class="badge badge-pill badge-primary">{{ $category->name_category }}</span>
               @endif
               @endforeach
+            </td>
+            <td>
+              @if($income->budget)
+              <span class="badge badge-success">{{ $income->budget->name }}</span>
+              <small>(Sisa: Rp {{ number_format($income->budget->total_amount, 0, ',', '.') }})</small>
+              @else
+              <span class="text-muted">Tidak ada</span>
+              @endif
             </td>
             <td>{{ $income->description }}</td>
             <td>

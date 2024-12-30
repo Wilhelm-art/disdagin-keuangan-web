@@ -8,11 +8,10 @@
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        <div class="row align-items-center">
+                        <div class="row justify-content-center align-items-center">
                             <!-- Logo Section -->
-                            <div class="col-lg-5 text-center">
-                                <img src="{{ asset('img/Disdagin.png') }}" alt="Logo"
-                                     style="max-width: 100%; display: block;">
+                            <div class="col-lg-5 d-flex justify-content-start align-items-center" style="padding-left: 30px;">
+                                <img src="{{ asset('img/Disdagin.png') }}" alt="Logo" style="max-width: 100%; display: block;">
                             </div>
                             <!-- Form Section -->
                             <div class="col-lg-7">
@@ -68,9 +67,6 @@
                                         <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
                                     </div>
                                     @endif
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

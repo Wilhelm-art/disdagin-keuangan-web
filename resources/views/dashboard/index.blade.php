@@ -12,44 +12,30 @@
         {{ session('welcome_message') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-@endif
+  @endif
 
-  {{-- <!-- Content Row -->
-  <div class="row">
-    <div class="col-12">
-      <div class="alert border-left-secondary shadow alert-warning alert-dismissible fade shadow show" role="alert">
-        <strong>Selamat Datang!</strong> Anda telah masuk sebagai <strong>{{ Auth::user()->name }}</strong>.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">
-            &times;
-          </span>
-        </button>
-      </div>
-    </div>
-  </div> --}}
+<div class="row">
 
-  <!-- Content Row -->
-  <div class="row">
-    {{-- <!-- Balance Card Example -->
+    <!-- Budget Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                Balance
+                Anggaran
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-                {{ number_format($total_balance, 0, ',', '.') }}
+                Rp {{ number_format($total_budget, 0, ',', '.') }}
               </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+              <i class="fas fa-wallet fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
       </div>
-    </div> --}}
+    </div>
 
     <!-- Income Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -61,7 +47,7 @@
                 Incomes
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-                {{ number_format($total_incomes, 0, ',', '.') }}
+                Rp {{ number_format($total_incomes, 0, ',', '.') }}
               </div>
             </div>
             <div class="col-auto">
@@ -79,10 +65,10 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                Expense
+                Expenses
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-                {{ number_format($total_expenses, 0, ',', '.') }}
+                Rp {{ number_format($total_expenses, 0, ',', '.') }}
               </div>
             </div>
             <div class="col-auto">
@@ -100,7 +86,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                Category
+                Categories
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 {{ $total_categories }}
@@ -113,7 +99,8 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+
 
   <!-- Grafik Content -->
   <div class="row mb-4">
@@ -161,7 +148,7 @@
                 <tbody>
                   @foreach($incomesAndExpenses as $incomeAndExpense)
                   <tr>
-                    <td>{{ number_format($incomeAndExpense->amount, 0, ',', '.') }}</td>
+                    <td>Rp {{ number_format($incomeAndExpense->amount, 0, ',', '.') }}</td>
                     <td>{{ $incomeAndExpense->description }}</td>
                     <td>{{ $incomeAndExpense->date }}</td>
                     <td>
@@ -182,25 +169,25 @@
     </div>
   </div>
 
-    <!-- Auto-dismiss alert script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(function () {
-                let alert = document.querySelector('.alert');
-                if (alert) {
-                    alert.classList.add('fade-out');
-                    setTimeout(() => alert.remove(), 500); // Remove element after fade effect
-                }
-            }, 3000); // 2 seconds
-        });
-    </script>
+  <!-- Auto-dismiss alert script -->
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          setTimeout(function () {
+              let alert = document.querySelector('.alert');
+              if (alert) {
+                  alert.classList.add('fade-out');
+                  setTimeout(() => alert.remove(), 500); // Remove element after fade effect
+              }
+          }, 3000); // 2 seconds
+      });
+  </script>
 
-    <style>
-        .fade-out {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-    </style>
+  <style>
+      .fade-out {
+          opacity: 0;
+          transition: opacity 0.5s ease;
+      }
+  </style>
 
 </div>
 

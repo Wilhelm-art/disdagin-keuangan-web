@@ -14,78 +14,76 @@ class Expenses extends Model
     protected $primaryKey = 'id_expense'; // Nama kolom primary key
     public $timestamps = false;
 
-    // Fill Tabel
+    // Fillable Fields
     protected $fillable = [
-        'amount', 'description', 'date', 'id_category', 'created_at'
+        'amount', 'description', 'date', 'id_category', 'created_at',
     ];
 
-    // Get All Data
-    public static function getAll()
+    // Relasi ke tabel Categories
+    public function category()
     {
-        return Expenses::all();
+        return $this->belongsTo(Categories::class, 'id_category', 'id_category');
     }
 
-    // Get Data by ID
+    // Mendapatkan semua data pengeluaran
+    public static function getAll()
+    {
+        return self::with('category')->get(); // Tambahkan relasi kategori
+    }
+
+    // Mendapatkan data berdasarkan ID
     public static function getById($id)
     {
-        return Expenses::where('id_expense', $id)->first();
+        return self::with('category')->where('id_expense', $id)->first();
     }
 
     // Insert Data
     public static function insert($data)
     {
-        // Ambil amount dari $data
+        // Kurangi saldo kategori yang bersangkutan
         $amount = $data['amount'];
 
-        // tambahkan description ke tabel balance
-        $description = "Pengeluaran";
-
-        // tambahkan data ke tabel balance
-        $balance = Balance::create([
-            // Kurangi jumlah balance dengan amount dari $data
-            'amount' => -1 * $amount,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        // Jika penambahan data ke tabel balance berhasil
-        if ($balance) {
-            // Tambahkan data ke tabel Incomes
-            $expense = Expenses::create($data);
-            return $expense;
+        $category = Categories::find($data['id_category']);
+        if (!$category) {
+            return false; // Return false jika kategori tidak ditemukan
         }
 
-        // Jika penambahan data ke tabel balance gagal, return false
-        return false;
+        $categoryBalance = $category->getCategoryBalance();
+        if ($categoryBalance < $amount) {
+            // Return false jika saldo kategori tidak cukup
+            return false;
+        }
+
+        // Tambahkan pengeluaran baru
+        $expense = self::create($data);
+
+        // Update saldo kategori (misalnya, kurangi saldo di tabel lain jika diperlukan)
+        // Tambahkan logika Anda di sini
+
+        return $expense;
     }
 
     // Total Pengeluaran
     public static function totalExpenses()
     {
-        // Ambil semua data dari model
-        $expenses = Expenses::all();
-
-        // Set variabel total_expenses
-        $total_expenses = 0;
-
-        // Looping data
-        foreach ($expenses as $expense) {
-            // Tambahkan amount ke variabel total_expenses
-            $total_expenses += $expense->amount;
-        }
-
-        // Return total_expenses
-        return $total_expenses;
+        return self::sum('amount'); // Gunakan fungsi agregat Laravel
     }
 
     // Hapus Data Berdasarkan ID
     public static function deleteData($id): bool
     {
-        $expense = self::find($id); // Mencari data berdasarkan ID
+        $expense = self::find($id);
 
         if ($expense) {
-            return $expense->delete(); // Hapus data jika ditemukan
+            return $expense->delete();
         }
 
-        return false; // Jika tidak ditemukan, kembalikan false
+        return false;
+    }
+
+    // Mendapatkan Total Pengeluaran Berdasarkan Kategori
+    public static function getTotalByCategory($id_category)
+    {
+        return self::where('id_category', $id_category)->sum('amount');
     }
 }
