@@ -31,4 +31,22 @@ class Categories extends Model
     {
         return self::all();  // Return all records from the 'categories' table
     }
+
+    // Get Category by ID
+    public static function getById($id)
+    {
+        return self::where('id_category', $id)->first();
+    }
+
+    // Update Category
+    public static function updateData($id, $data)
+    {
+        return self::where('id_category', $id)->update($data);
+    }
+
+    // Delete Category
+    public static function deleteData($id)
+    {
+        return self::where('id_category', $id)->delete();
+    }
 }

@@ -62,7 +62,10 @@
             </td>
             <td>{{ $income->description }}</td>
             <td>
-              <!-- Tombol Hapus -->
+              <!-- Tombol Edit & Hapus -->
+              <a href="{{ route('incomes.editPage', $income->id_income) }}" class="btn btn-sm btn-warning mr-1">
+                <i class="fas fa-edit"></i> Edit
+              </a>
               <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteIncomeModal{{ $income->id_income }}">
                 <i class="fas fa-trash"></i> Hapus
               </button>
@@ -89,7 +92,11 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <a href="{{ route('incomes.delete', $income->id_income) }}" class="btn btn-danger">Hapus</a>
+            <form action="{{ route('incomes.delete', $income->id_income) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Hapus</button>
+            </form>
           </div>
         </div>
       </div>

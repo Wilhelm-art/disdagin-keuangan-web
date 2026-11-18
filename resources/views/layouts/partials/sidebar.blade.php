@@ -1,9 +1,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand my-3 d-flex align-items-center justify-content-center" href="/">
+    <a class="sidebar-brand my-3 d-flex align-items-center justify-content-center" href="/dashboard">
         <div class="sidebar-brand-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="50" height="50">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="45" height="45">
                 <circle cx="250" cy="250" r="240" fill="white" stroke="#FF6A00" stroke-width="20" />
                 <g transform="translate(180, 30) scale(0.7)">
                     <rect x="50" y="50" width="100" height="100" fill="#F4C542" />
@@ -18,7 +18,7 @@
                 </text>
             </svg>
         </div>
-        <div class="sidebar-brand-text mx-3">
+        <div class="sidebar-brand-text mx-2 font-weight-bold">
             DISDAGIN
         </div>
     </a>
@@ -26,10 +26,10 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard (Berlaku untuk semua role) -->
-    <li class="nav-item active">
+    <!-- Nav Item - Dashboard (Semua role) -->
+    <li class="nav-item {{ request()->is('dashboard*') ? 'active' : '' }}">
         <a class="nav-link" href="/dashboard">
-            <i class="fas fa-home"></i>
+            <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -37,47 +37,38 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Menu Lain Hanya untuk Admin -->
+    <!-- Menu Khusus Admin -->
     @if(auth()->user() && auth()->user()->role === 'admin')
-        <!-- Heading -->
-        <div class="sidebar-heading">Data</div>
+        <div class="sidebar-heading">Pengelolaan Data</div>
 
-        <!-- Nav Item - Data Master -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-chart-area"></i>
-                <span>Data Master</span>
+        <!-- Nav Item - Kategori -->
+        <li class="nav-item {{ request()->is('categories*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('categories') }}">
+                <i class="fas fa-fw fa-tags"></i>
+                <span>Kategori</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('categories') }}">
-                        <i class="fa fa-tags mr-2"></i>Category
-                    </a>
-                </div>
-            </div>
         </li>
 
-        <!-- Nav Item - Budgets -->
-        <li class="nav-item">
-            <a href="{{ route('budgets.index') }}" class="nav-link">
-                <i class="fa fa-wallet"></i>
-                <span>Budget</span>
+        <!-- Nav Item - Anggaran -->
+        <li class="nav-item {{ request()->is('budgets*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('budgets.index') }}">
+                <i class="fas fa-fw fa-wallet"></i>
+                <span>Anggaran</span>
             </a>
         </li>
 
         <!-- Nav Item - Pemasukan -->
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('incomes*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('incomes') }}">
-                <i class="fas fa-arrow-down"></i>
+                <i class="fas fa-fw fa-arrow-down text-success"></i>
                 <span>Pemasukan</span>
             </a>
         </li>
 
         <!-- Nav Item - Pengeluaran -->
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('expenses*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('expenses') }}">
-                <i class="fas fa-arrow-up"></i>
+                <i class="fas fa-fw fa-arrow-up text-danger"></i>
                 <span>Pengeluaran</span>
             </a>
         </li>
@@ -86,18 +77,23 @@
         <hr class="sidebar-divider">
     @endif
 
-    <!-- Nav Item - Laporan (Berlaku untuk semua role, termasuk kadis) -->
-    <li class="nav-item">
-        <a href="{{ route('reports.index') }}" class="nav-link">
-            <i class="fa fa-chart-bar"></i>
-            <span>Laporan</span>
+    <!-- Heading Laporan -->
+    <div class="sidebar-heading">Laporan & Analisis</div>
+
+    <!-- Nav Item - Laporan (Semua role: Admin & Kadis) -->
+    <li class="nav-item {{ request()->is('reports*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('reports.index') }}">
+            <i class="fas fa-fw fa-chart-bar"></i>
+            <span>Laporan Keuangan</span>
         </a>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Sidebar Toggle -->
     <div class="text-center d-none d-md-inline">
-        <br>
-        <button class="rounded-sm border-0" id="sidebarToggle"></button>
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
 </ul>

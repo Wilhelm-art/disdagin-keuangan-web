@@ -73,6 +73,45 @@ class IncomesController extends Controller
         }
     }
 
+    // Halaman Edit Pemasukan
+    public function editPage($id)
+    {
+        $title = "Edit Data Pemasukan";
+        $income = Incomes::findOrFail($id);
+        $categories = Categories::all();
+        $budgets = Budget::all();
+        return view('dashboard.incomes.edit', compact('title', 'income', 'categories', 'budgets'));
+    }
+
+    // Update Pemasukan
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'description' => 'required|string|max:255',
+            'date' => 'required|date',
+            'id_category' => 'required|exists:categories,id_category',
+            'id_budget' => 'required|exists:budgets,id',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            Incomes::updateData($id, [
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'date' => $request->date,
+                'id_category' => $request->id_category,
+                'id_budget' => $request->id_budget,
+            ]);
+
+            DB::commit();
+            return redirect()->route('incomes')->with('success', 'Data pemasukan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
+        }
+    }
+
     // Delete Data
     public function destroy($id)
     {

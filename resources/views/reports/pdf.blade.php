@@ -43,15 +43,14 @@
 <body>
 
 @php
-    // Pastikan file Disdagin.png ada di public/img
     $logoPath = public_path('img/Disdagin.png');
-    $logoData = base64_encode(file_get_contents($logoPath));
-    $logoSrc = 'data:image/png;base64,'.$logoData;
+    $logoSrc = file_exists($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
 @endphp
 
 <header>
-    <!-- Logo di-embed dengan base64 agar pasti muncul di PDF -->
+    @if($logoSrc)
     <img src="{{ $logoSrc }}" alt="Logo">
+    @endif
     <h1>DINAS PERDAGANGAN DAN PERINDUSTRIAN</h1>
     <h2>Laporan Keuangan</h2>
 </header>

@@ -64,6 +64,50 @@ class ExpensesController extends Controller
         return redirect()->route('expenses')->with('success', 'Pengeluaran berhasil ditambahkan!');
     }
 
+    // Halaman Edit Pengeluaran
+    public function editPage($id)
+    {
+        $expense = Expenses::findOrFail($id);
+        $categories = Categories::all();
+        return view('dashboard.expenses.edit', compact('expense', 'categories'));
+    }
+
+    // Update Pengeluaran
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_category' => 'required|exists:categories,id_category',
+            'date' => 'required|date',
+            'amount' => 'required|numeric|min:1',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $expense = Expenses::findOrFail($id);
+        $id_category = $request->id_category;
+        $amount = $request->amount;
+
+        $totalIncome = Incomes::where('id_category', $id_category)->sum('amount');
+        $totalExpense = Expenses::where('id_category', $id_category)
+            ->where('id_expense', '!=', $id)
+            ->sum('amount');
+        $remainingBalance = $totalIncome - $totalExpense;
+
+        if ($amount > $remainingBalance) {
+            return redirect()->back()->withErrors([
+                'amount' => 'Saldo tidak mencukupi untuk pengeluaran ini (Sisa: Rp ' . number_format($remainingBalance, 0, ',', '.') . ').',
+            ])->withInput();
+        }
+
+        $expense->update([
+            'amount' => $amount,
+            'description' => $request->description,
+            'date' => $request->date,
+            'id_category' => $id_category,
+        ]);
+
+        return redirect()->route('expenses')->with('success', 'Pengeluaran berhasil diperbarui!');
+    }
+
     // Hapus Pengeluaran
     public function destroy($id)
     {

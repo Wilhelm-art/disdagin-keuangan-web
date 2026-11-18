@@ -68,9 +68,13 @@
             </div>
 
             <!-- Tombol Aksi -->
-            <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-sm btn-success me-2">Simpan</button>
-              <a href="{{ route('incomes') }}" class="btn btn-sm btn-secondary">Kembali</a>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-sm btn-success">
+                <i class="fas fa-save"></i> Simpan
+              </button>
+              <a href="{{ route('expenses') }}" class="btn btn-sm btn-secondary">
+                <i class="fas fa-arrow-left"></i> Kembali
+              </a>
             </div>
           </form>
         </div>

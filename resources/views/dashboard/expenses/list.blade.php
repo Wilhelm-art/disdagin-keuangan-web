@@ -49,6 +49,9 @@
             </td>
             <td>{{ $expense->description }}</td>
             <td>
+              <a href="{{ route('expenses.editPage', $expense->id_expense) }}" class="btn btn-sm btn-warning mr-1">
+                <i class="fas fa-edit"></i> Edit
+              </a>
               <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteexpenseModal{{ $expense->id_expense }}">
                 <i class="fas fa-trash"></i> Hapus
               </button>
@@ -75,7 +78,11 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <a href="{{ route('expenses.delete', $expense->id_expense) }}" class="btn btn-danger">Hapus</a>
+            <form action="{{ route('expenses.delete', $expense->id_expense) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Hapus</button>
+            </form>
           </div>
         </div>
       </div>

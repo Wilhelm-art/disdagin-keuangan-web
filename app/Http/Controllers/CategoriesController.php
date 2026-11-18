@@ -24,6 +24,10 @@ class CategoriesController extends Controller
     // Insert & Send Data to Model
     public function insert(Request $request)
     {
+        $request->validate([
+            'name_category' => 'required|string|max:100',
+        ]);
+
         $data = [
             'name_category' => $request->name_category
         ];
@@ -37,12 +41,19 @@ class CategoriesController extends Controller
     {
         $title = "Edit Kategori";
         $category = Categories::getById($id);
+        if (!$category) {
+            return redirect()->route('categories')->with('error', 'Kategori tidak ditemukan!');
+        }
         return view('dashboard.categories.edit', compact('title', 'category'));
     }
 
     // Update Data via Model
     public function update(Request $request, $id_category)
     {
+        $request->validate([
+            'name_category' => 'required|string|max:100',
+        ]);
+
         $data = [
             'name_category' => $request->name_category
         ];
@@ -54,7 +65,11 @@ class CategoriesController extends Controller
     // Delete Data
     public function delete($id)
     {
-        Categories::deleteData($id);
-        return redirect()->route('categories')->with('success', 'Data berhasil dihapus!');
+        try {
+            Categories::deleteData($id);
+            return redirect()->route('categories')->with('success', 'Data berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('categories')->with('error', 'Kategori tidak dapat dihapus karena masih digunakan pada data transaksi.');
+        }
     }
 }

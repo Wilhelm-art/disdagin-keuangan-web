@@ -139,6 +139,7 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
+                    <th>Tipe</th>
                     <th>Jumlah</th>
                     <th>Deskripsi</th>
                     <th>Tanggal</th>
@@ -148,13 +149,22 @@
                 <tbody>
                   @foreach($incomesAndExpenses as $incomeAndExpense)
                   <tr>
-                    <td>Rp {{ number_format($incomeAndExpense->amount, 0, ',', '.') }}</td>
+                    <td>
+                      @if(isset($incomeAndExpense->type) && $incomeAndExpense->type === 'income')
+                        <span class="badge badge-success"><i class="fas fa-arrow-down mr-1"></i>Pemasukan</span>
+                      @else
+                        <span class="badge badge-danger"><i class="fas fa-arrow-up mr-1"></i>Pengeluaran</span>
+                      @endif
+                    </td>
+                    <td class="font-weight-bold {{ (isset($incomeAndExpense->type) && $incomeAndExpense->type === 'income') ? 'text-success' : 'text-danger' }}">
+                      Rp {{ number_format($incomeAndExpense->amount, 0, ',', '.') }}
+                    </td>
                     <td>{{ $incomeAndExpense->description }}</td>
                     <td>{{ $incomeAndExpense->date }}</td>
                     <td>
                       @foreach($categories as $category)
                       @if($category->id_category == $incomeAndExpense->id_category)
-                      {{ $category->name_category }}
+                      <span class="badge badge-light border">{{ $category->name_category }}</span>
                       @endif
                       @endforeach
                     </td>

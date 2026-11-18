@@ -40,19 +40,22 @@ class Balance extends Model
     // Mengambil semua data pemasukan dan pengeluaran
     public static function getAllIncomesAndExpenses()
     {
-        // Ambil semua data pemasukan dari Tabel Incomes
-        $incomes = Incomes::all();
+        // Ambil semua data pemasukan dan beri label type
+        $incomes = Incomes::all()->map(function ($item) {
+            $item->type = 'income';
+            return $item;
+        });
 
-        // Ambil semua data pengeluaran dari Tabel Expenses
-        $expenses = Expenses::all();
+        // Ambil semua data pengeluaran dan beri label type
+        $expenses = Expenses::all()->map(function ($item) {
+            $item->type = 'expense';
+            return $item;
+        });
 
-        // Gabungkan data pemasukan dan pengeluaran dengan Join Table
+        // Gabungkan data pemasukan dan pengeluaran
         $incomesAndExpenses = $incomes->concat($expenses);
 
-        // Urutkan data pemasukan dan pengeluaran berdasarkan tanggal
-        $incomesAndExpenses = $incomesAndExpenses->sortByDesc('date');
-
-        // Return data pemasukan dan pengeluaran
-        return $incomesAndExpenses;
+        // Urutkan data berdasarkan tanggal terbaru
+        return $incomesAndExpenses->sortByDesc('date');
     }
 }
