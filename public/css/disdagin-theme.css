@@ -1,0 +1,241 @@
+/* ===================================================================
+ * DISDAGIN KOTA BANDUNG - THEME & DESIGN SYSTEM
+ * Inspired by official portal: https://multisite.bandung.go.id/disdagin/
+ * Colors: Deep Navy (#0c264c), Sky Blue (#1890d7), Bandung Green (#0D7A4D), Gold (#fcb900)
+ * =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap');
+
+:root {
+  --disdagin-navy: #0c264c;
+  --disdagin-navy-dark: #081a35;
+  --disdagin-navy-light: #163e77;
+  --disdagin-blue: #1890d7;
+  --disdagin-blue-hover: #1274ad;
+  --disdagin-green: #0D7A4D;
+  --disdagin-green-light: #129d63;
+  --disdagin-gold: #fcb900;
+  --disdagin-amber: #f59e0b;
+  --disdagin-surface: #f8fafc;
+  --disdagin-border: #e2e8f0;
+  --disdagin-text: #1e293b;
+  --disdagin-text-muted: #64748b;
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Rubik', 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-main) !important;
+  color: var(--disdagin-text);
+  background-color: var(--disdagin-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading) !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* -------------------------------------------------------------------
+ * SIDEBAR & NAVIGATION STYLING (DISDAGIN OFFICIAL NAVY)
+ * ------------------------------------------------------------------- */
+.bg-gradient-primary,
+.sidebar-dark.bg-gradient-primary,
+ul#accordionSidebar.bg-gradient-primary {
+  background-color: var(--disdagin-navy) !important;
+  background-image: linear-gradient(180deg, var(--disdagin-navy) 0%, var(--disdagin-navy-dark) 100%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-dark .sidebar-brand {
+  color: #ffffff;
+  padding: 1.5rem 1rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-dark .sidebar-brand-text {
+  font-family: var(--font-heading);
+  letter-spacing: 0.5px;
+}
+
+.sidebar-dark .sidebar-heading {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.75rem 1rem 0.25rem;
+}
+
+.sidebar-dark .nav-item .nav-link {
+  color: rgba(255, 255, 255, 0.82);
+  padding: 0.8rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  margin: 2px 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-dark .nav-item .nav-link i {
+  color: rgba(255, 255, 255, 0.65);
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  width: 22px;
+}
+
+.sidebar-dark .nav-item .nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-dark .nav-item .nav-link:hover i {
+  color: var(--disdagin-gold);
+}
+
+.sidebar-dark .nav-item.active .nav-link {
+  color: #ffffff !important;
+  background: linear-gradient(90deg, var(--disdagin-blue) 0%, var(--disdagin-navy-light) 100%) !important;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(24, 144, 215, 0.35);
+}
+
+.sidebar-dark .nav-item.active .nav-link i {
+  color: #ffffff !important;
+}
+
+.sidebar-dark hr.sidebar-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0.5rem 1rem;
+}
+
+/* -------------------------------------------------------------------
+ * TOPBAR
+ * ------------------------------------------------------------------- */
+.topbar {
+  height: 4.5rem;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--disdagin-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.topbar .nav-item .nav-link {
+  height: 4.5rem;
+}
+
+.badge-role-admin {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #bae6fd;
+}
+
+.badge-role-kadis {
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #fde68a;
+}
+
+/* -------------------------------------------------------------------
+ * BUTTONS & ACCENTS
+ * ------------------------------------------------------------------- */
+.btn-primary {
+  background-color: var(--disdagin-navy) !important;
+  border-color: var(--disdagin-navy) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--disdagin-navy-light) !important;
+  border-color: var(--disdagin-navy-light) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(12, 38, 76, 0.25) !important;
+}
+
+.btn-info {
+  background-color: var(--disdagin-blue) !important;
+  border-color: var(--disdagin-blue) !important;
+}
+
+.btn-success {
+  background-color: var(--disdagin-green) !important;
+  border-color: var(--disdagin-green) !important;
+}
+
+/* -------------------------------------------------------------------
+ * CARDS & SURFACES
+ * ------------------------------------------------------------------- */
+.card {
+  border: 1px solid var(--disdagin-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.card-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--disdagin-border);
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.border-left-primary {
+  border-left: 4px solid var(--disdagin-navy) !important;
+}
+
+.border-left-success {
+  border-left: 4px solid var(--disdagin-green) !important;
+}
+
+.border-left-info {
+  border-left: 4px solid var(--disdagin-blue) !important;
+}
+
+.border-left-warning {
+  border-left: 4px solid var(--disdagin-amber) !important;
+}
+
+/* -------------------------------------------------------------------
+ * TABLES & BADGES
+ * ------------------------------------------------------------------- */
+.table th {
+  background-color: #f1f5f9;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-top: none;
+  vertical-align: middle;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 0.88rem;
+}
+
+/* -------------------------------------------------------------------
+ * FOOTER
+ * ------------------------------------------------------------------- */
+footer.sticky-footer {
+  background-color: #ffffff !important;
+  border-top: 1px solid var(--disdagin-border);
+  padding: 1.5rem 0;
+}

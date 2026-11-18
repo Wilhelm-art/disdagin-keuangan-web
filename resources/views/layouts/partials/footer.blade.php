@@ -2,10 +2,10 @@
 <!-- End of Main Content -->
 
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
+<footer class="sticky-footer bg-white border-top">
   <div class="container my-auto">
-    <div class="copyright text-center my-auto">
-      <span>&copy; {{ date('Y') }} - Dinas Perdagangan dan Perindustrian Kota Bandung</span>
+    <div class="copyright text-center my-auto text-muted small">
+      <span>&copy; {{ date('Y') }} <strong>Pemerintah Kota Bandung</strong> — Dinas Perdagangan dan Perindustrian. Jl. Tamansari No. 59, Kota Bandung 40132.</span>
     </div>
   </div>
 </footer>
@@ -18,27 +18,25 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Yakin ingin keluar dari aplikasi?
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title font-weight-bold text-gray-800" id="logoutModalLabel">
+          <i class="fas fa-sign-out-alt text-danger mr-2"></i>Konfirmasi Keluar Sesi
         </h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </span>
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Pilih tombol "Logout" di bawah jika Anda ingin mengakhiri sesi Anda saat ini.
+      <div class="modal-body py-4 text-gray-700">
+        Apakah Anda yakin ingin mengakhiri sesi dan keluar dari <strong>SIPK DISDAGIN Kota Bandung</strong>?
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+      <div class="modal-footer bg-light">
+        <button class="btn btn-secondary px-3" type="button" data-dismiss="modal">Batal</button>
         <form method="POST" action="{{ route('logout') }}">
           @csrf
-          <button class="btn btn-primary" type="submit">Logout</button>
+          <button class="btn btn-danger font-weight-bold px-4" type="submit">Ya, Keluar</button>
         </form>
       </div>
     </div>
