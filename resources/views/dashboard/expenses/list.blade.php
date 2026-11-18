@@ -60,6 +60,15 @@
           @endforeach
         </tbody>
       </table>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="small text-muted">
+          Menampilkan {{ $expenses->firstItem() ?? 0 }} sampai {{ $expenses->lastItem() ?? 0 }} dari {{ $expenses->total() }} pengeluaran
+        </div>
+        <div>
+          {{ $expenses->links() }}
+        </div>
+      </div>
     </div>
 
     <!-- Modal Hapus -->

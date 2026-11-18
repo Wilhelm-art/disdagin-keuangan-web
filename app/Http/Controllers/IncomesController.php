@@ -13,7 +13,7 @@ class IncomesController extends Controller
     // Menampilkan Semua Data
     public function index()
     {
-        $incomes = Incomes::with(['category', 'budget'])->get();
+        $incomes = Incomes::with(['category', 'budget'])->orderBy('date', 'desc')->paginate(10);
         $categories = Categories::all();
         $budgets = Budget::all();
         return view('dashboard.incomes.list', compact('incomes', 'categories', 'budgets'));

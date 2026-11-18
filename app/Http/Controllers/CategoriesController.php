@@ -10,7 +10,7 @@ class CategoriesController extends Controller
     // Show All Data
     public function index()
     {
-        $categories = Categories::getAll();
+        $categories = Categories::orderBy('id_category', 'asc')->paginate(10);
         return view('dashboard.categories.list', compact('categories'));
     }
 

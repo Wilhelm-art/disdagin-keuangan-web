@@ -9,6 +9,8 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\IncomesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 // Home Route
 Route::view('/', 'home.index')->name('home');
@@ -35,9 +37,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Sisa Saldo Kategori (AJAX helper)
     Route::get('/categories/{id}/remaining-balance', [ExpensesController::class, 'getRemainingBalance'])->name('categories.remaining-balance');
+
+    // Profil Pengguna (Mandiri)
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-// Admin-Only Routes (Hanya Admin yang dapat mengelola data transaksi & anggaran)
+// Admin-Only Routes (Hanya Admin yang dapat mengelola data transaksi, anggaran & akun staf)
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Kategori
     Route::get('categories', [CategoriesController::class, 'index'])->name('categories');
@@ -63,8 +69,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('expenses/update/{id}', [ExpensesController::class, 'update'])->name('expenses.update');
     Route::delete('expenses/delete/{id}', [ExpensesController::class, 'destroy'])->name('expenses.delete');
 
-    // Anggaran
+    // Anggaran (Resource)
     Route::resource('budgets', BudgetController::class);
+
+    // Manajemen Pengguna (Resource)
+    Route::resource('users', UserController::class);
 });
 
 // Nonaktifkan registrasi publik di level auth framework

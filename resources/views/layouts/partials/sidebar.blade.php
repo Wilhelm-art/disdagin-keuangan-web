@@ -73,18 +73,34 @@
             </a>
         </li>
 
+        <!-- Nav Item - Kelola Pengguna -->
+        <li class="nav-item {{ request()->is('users*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-users-cog"></i>
+                <span>Kelola Pengguna</span>
+            </a>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
     @endif
 
     <!-- Heading Laporan -->
-    <div class="sidebar-heading">Laporan & Analisis</div>
+    <div class="sidebar-heading">Laporan & Pengaturan</div>
 
     <!-- Nav Item - Laporan (Semua role: Admin & Kadis) -->
     <li class="nav-item {{ request()->is('reports*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('reports.index') }}">
             <i class="fas fa-fw fa-chart-bar"></i>
             <span>Laporan Keuangan</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Profil Saya (Semua role) -->
+    <li class="nav-item {{ request()->is('profile*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('profile.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profil Saya</span>
         </a>
     </li>
 

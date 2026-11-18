@@ -46,6 +46,15 @@
           @endforeach
         </tbody>
       </table>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="small text-muted">
+          Menampilkan {{ $categories->firstItem() ?? 0 }} sampai {{ $categories->lastItem() ?? 0 }} dari {{ $categories->total() }} kategori
+        </div>
+        <div>
+          {{ $categories->links() }}
+        </div>
+      </div>
     </div>
 
     @foreach($categories as $category)

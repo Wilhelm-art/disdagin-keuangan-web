@@ -12,8 +12,8 @@ class ExpensesController extends Controller
     // Halaman List Pengeluaran
     public function index()
     {
-        // Gunakan eager loading untuk relasi kategori
-        $expenses = Expenses::with('category')->get();
+        // Gunakan eager loading dan paginasi
+        $expenses = Expenses::with('category')->orderBy('date', 'desc')->paginate(10);
         $categories = Categories::all(); // Ambil semua kategori
         return view('dashboard.expenses.list', compact('expenses', 'categories'));
     }

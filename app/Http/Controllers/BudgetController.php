@@ -12,7 +12,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::all();  // Tidak perlu memuat relasi kategori
+        $budgets = Budget::orderBy('id', 'asc')->paginate(10);
         return view('budgets.index', compact('budgets'));
     }
 

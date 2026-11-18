@@ -74,6 +74,15 @@
           @endforeach
         </tbody>
       </table>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="small text-muted">
+          Menampilkan {{ $incomes->firstItem() ?? 0 }} sampai {{ $incomes->lastItem() ?? 0 }} dari {{ $incomes->total() }} pemasukan
+        </div>
+        <div>
+          {{ $incomes->links() }}
+        </div>
+      </div>
     </div>
 
     <!-- Modal Hapus -->

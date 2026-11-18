@@ -83,6 +83,15 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="small text-muted">
+                    Menampilkan {{ $budgets->firstItem() ?? 0 }} sampai {{ $budgets->lastItem() ?? 0 }} dari {{ $budgets->total() }} mata anggaran
+                </div>
+                <div>
+                    {{ $budgets->links() }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
