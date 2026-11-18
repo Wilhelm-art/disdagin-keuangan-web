@@ -30,7 +30,7 @@
             <i class="fas fa-file-invoice-dollar mr-1"></i>Laporan Keuangan
           </a>
           @if(Auth::user()->role === 'admin')
-            <a href="{{ route('incomes.create') }}" class="btn btn-light text-primary font-weight-bold shadow-sm mb-2">
+            <a href="{{ route('incomes.addPage') }}" class="btn btn-light text-primary font-weight-bold shadow-sm mb-2">
               <i class="fas fa-plus-circle mr-1"></i>Catat Kas
             </a>
           @endif
