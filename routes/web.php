@@ -11,7 +11,6 @@ use App\Http\Controllers\IncomesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BudgetController;
 
-
 // Home Route
 Route::view('/', 'home.index')->name('home');
 
@@ -27,48 +26,34 @@ Route::group(['middleware' => 'web'], function () {
 // Kategori
 Route::group(['middleware' => ['auth']], function () {
     Route::get('categories', [CategoriesController::class, 'index'])->name('categories');
-    Route::get('categories/add', [CategoriesController::class, 'addPage'])->name('categories.addPage');
-    Route::post('categories/insert', [CategoriesController::class, 'insert'])->name('categories.insert');
-    Route::get('categories/edit/{id}', [CategoriesController::class, 'editPage'])->name('categories.editPage');
-    Route::put('categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
-    Route::get('categories/delete/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
+    // ...
 });
 
 // Incomes
 Route::middleware(['auth'])->group(function () {
     Route::get('incomes', [IncomesController::class, 'index'])->name('incomes');
-    Route::get('incomes/add', [IncomesController::class, 'addPage'])->name('incomes.addPage');
-    Route::post('incomes/insert', [IncomesController::class, 'insert'])->name('incomes.insert');
-    Route::get('incomes/edit/{id}', [IncomesController::class, 'editPage'])->name('incomes.editPage');
-    Route::put('incomes/update/{id}', [IncomesController::class, 'update'])->name('incomes.update');
-    Route::get('incomes/delete/{id}', [IncomesController::class, 'destroy'])->name('incomes.delete');
+    // ...
 });
 
 // Expenses
 Route::middleware(['auth'])->group(function () {
     Route::get('expenses', [ExpensesController::class, 'index'])->name('expenses');
-    Route::get('expenses/add', [ExpensesController::class, 'addPage'])->name('expenses.addPage');
-    Route::post('expenses/insert', [ExpensesController::class, 'insert'])->name('expenses.insert');
-    Route::get('expenses/edit/{id}', [ExpensesController::class, 'editPage'])->name('expenses.editPage');
-    Route::put('expenses/update/{id}', [ExpensesController::class, 'update'])->name('expenses.update');
-    Route::get('expenses/delete/{id}', [ExpensesController::class, 'destroy'])->name('expenses.delete');
+    // ...
 });
 
-// laporan
+// Laporan
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.exportPdf');
 Route::get('reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.exportExcel');
 Route::get('reports/print', [ReportController::class, 'print'])->name('reports.print');
 
-
 // Budget
 Route::resource('budgets', BudgetController::class);
-
 
 // Dashboard Route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-//PDF & Excel
+//PDF & Excel (opsional, jika perlu route terpisah)
 Route::get('/reports/pdf', [ReportController::class, 'exportPdf'])->name('reports.pdf');
 Route::get('/reports/excel', [ReportController::class, 'exportExcel'])->name('reports.excel');
 

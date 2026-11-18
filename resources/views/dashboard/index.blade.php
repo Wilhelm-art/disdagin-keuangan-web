@@ -44,7 +44,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                Incomes
+                Pemasukan
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 Rp {{ number_format($total_incomes, 0, ',', '.') }}
@@ -65,7 +65,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                Expenses
+                Pengeluaran
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 Rp {{ number_format($total_expenses, 0, ',', '.') }}
@@ -86,7 +86,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                Categories
+                kategori
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 {{ $total_categories }}
@@ -132,17 +132,17 @@
       <div class="table">
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-secondary">Income & Expense</h6>
+            <h6 class="m-0 font-weight-bold text-secondary">PEMASUKAN & PENGELUARAN</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Category</th>
+                    <th>Jumlah</th>
+                    <th>Deskripsi</th>
+                    <th>Tanggal</th>
+                    <th>Kategori</th>
                   </tr>
                 </thead>
                 <tbody>

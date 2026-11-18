@@ -10,14 +10,30 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Akun Default
-        DB::table('users')->insert([
-            'name' => 'admin',
-            'email' => 'admin@example.com',
-            'email_verified_at' => '2020-01-01 00:00:00',
-            'password' => bcrypt('admin123'),
-            'remember_token' => Str::random(10),
-            'created_at' => '2020-01-01 00:00:00',
-        ]);
+        // Akun Default Admin Disdagin
+        DB::table('users')->updateOrInsert(
+            ['email' => 'disdagin@gmail.com'],
+            [
+                'name' => 'Admin Disdagin',
+                'email_verified_at' => now(),
+                'password' => bcrypt('disdagin2025'),
+                'remember_token' => Str::random(10),
+                'role' => 'admin',
+                'updated_at' => now(),
+            ]
+        );
+
+        // Akun Kepala Dinas
+        DB::table('users')->updateOrInsert(
+            ['email' => 'kadisdagin@gmail.com'],
+            [
+                'name' => 'Kepala Dinas',
+                'email_verified_at' => now(),
+                'password' => bcrypt('kadis123'),
+                'remember_token' => Str::random(10),
+                'role' => 'kadis',
+                'updated_at' => now(),
+            ]
+        );
     }
 }

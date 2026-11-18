@@ -1,7 +1,6 @@
 @extends('layouts.auth')
 
 @section('content')
-
 <body class="bg-gradient-primary">
     <div class="container">
         <div class="row justify-content-center">
@@ -27,7 +26,10 @@
                                         <!-- Email -->
                                         <div class="form-group">
                                             <label for="email" class="col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <input id="email" type="email"
+                                                   class="form-control @error('email') is-invalid @enderror"
+                                                   name="email" value="{{ old('email') }}" required
+                                                   autocomplete="email" autofocus>
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -39,7 +41,9 @@
                                             <label for="password" class="col-form-label text-md-right">
                                                 {{ __('Password') }}
                                             </label>
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input id="password" type="password"
+                                                   class="form-control @error('password') is-invalid @enderror"
+                                                   name="password" required autocomplete="current-password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -49,8 +53,8 @@
                                         <!-- Remember Me -->
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
+                                                <input class="form-check-input" type="checkbox" name="remember"
+                                                       id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="remember">
                                                     {{ __('Remember Me') }}
                                                 </label>
@@ -63,9 +67,16 @@
                                     </form>
                                     <hr>
                                     @if (Route::has('password.request'))
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
-                                    </div>
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
+                                        </div>
+                                    @endif
+
+                                    <!-- Register Link -->
+                                    @if (Route::has('register'))
+                                        <div class="text-center mt-2">
+                                            <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -76,5 +87,4 @@
         </div>
     </div>
 </body>
-
 @endsection

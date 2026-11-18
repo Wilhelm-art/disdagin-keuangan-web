@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>@yield('title', 'Disdagin')</title>
+    <title>@yield('title', 'DISDAGIN Kota Bandung - Pengelolaan Keuangan')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sb-admin-2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">

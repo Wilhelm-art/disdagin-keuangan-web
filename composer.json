@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "disdagin/pengelolaan-keuangan",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Sistem Informasi Pengelolaan Keuangan Dinas Perdagangan dan Perindustrian Kota Bandung (DISDAGIN)",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
