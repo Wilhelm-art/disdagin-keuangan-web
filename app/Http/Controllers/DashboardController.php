@@ -30,30 +30,51 @@ class DashboardController extends Controller
         // Ambil semua data kategori dari model categories
         $categories = Categories::getAll();
 
-        // Ambil data pemasukan per bulan
-        $monthlyIncomes = Incomes::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
-            ->groupBy('month', 'year')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
+        // Ambil data pemasukan dan pengeluaran per bulan & tahun sesuai driver DB (MySQL / PostgreSQL)
+        $driver = \Illuminate\Support\Facades\DB::getDriverName();
+        if ($driver === 'pgsql') {
+            $monthlyIncomes = Incomes::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
+                ->groupByRaw('EXTRACT(YEAR FROM date), EXTRACT(MONTH FROM date)')
+                ->orderByRaw('EXTRACT(YEAR FROM date) asc, EXTRACT(MONTH FROM date) asc')
+                ->get();
 
-        // Ambil data pengeluaran per bulan
-        $monthlyExpenses = Expenses::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
-            ->groupBy('month', 'year')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
+            $monthlyExpenses = Expenses::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
+                ->groupByRaw('EXTRACT(YEAR FROM date), EXTRACT(MONTH FROM date)')
+                ->orderByRaw('EXTRACT(YEAR FROM date) asc, EXTRACT(MONTH FROM date) asc')
+                ->get();
 
-        // Ambil data pemasukan dan pengeluaran per tahun
-        $yearlyIncomes = Incomes::selectRaw('YEAR(date) as year, SUM(amount) as total')
-            ->groupBy('year')
-            ->orderBy('year', 'asc')
-            ->get();
+            $yearlyIncomes = Incomes::selectRaw('CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
+                ->groupByRaw('EXTRACT(YEAR FROM date)')
+                ->orderByRaw('EXTRACT(YEAR FROM date) asc')
+                ->get();
 
-        $yearlyExpenses = Expenses::selectRaw('YEAR(date) as year, SUM(amount) as total')
-            ->groupBy('year')
-            ->orderBy('year', 'asc')
-            ->get();
+            $yearlyExpenses = Expenses::selectRaw('CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
+                ->groupByRaw('EXTRACT(YEAR FROM date)')
+                ->orderByRaw('EXTRACT(YEAR FROM date) asc')
+                ->get();
+        } else {
+            $monthlyIncomes = Incomes::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
+                ->groupBy('month', 'year')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+
+            $monthlyExpenses = Expenses::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
+                ->groupBy('month', 'year')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+
+            $yearlyIncomes = Incomes::selectRaw('YEAR(date) as year, SUM(amount) as total')
+                ->groupBy('year')
+                ->orderBy('year', 'asc')
+                ->get();
+
+            $yearlyExpenses = Expenses::selectRaw('YEAR(date) as year, SUM(amount) as total')
+                ->groupBy('year')
+                ->orderBy('year', 'asc')
+                ->get();
+        }
 
         // Data yang dikirim ke view
         $data = [

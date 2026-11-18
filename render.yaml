@@ -1,0 +1,35 @@
+databases:
+  - name: disdagin-db
+    databaseName: disdagin_db
+    user: disdagin_user
+    plan: free
+    region: singapore
+
+services:
+  - type: web
+    name: disdagin-web
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: main
+    envVars:
+      - key: APP_NAME
+        value: "DISDAGIN Kota Bandung"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: disdagin-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_DRIVER
+        value: file
