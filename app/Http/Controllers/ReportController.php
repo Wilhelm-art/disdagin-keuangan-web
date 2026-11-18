@@ -29,8 +29,22 @@ class ReportController extends Controller
         // Ambil data laporan dengan filter
         $reports = $this->getFilteredReports($request);
 
+        $tempDir = sys_get_temp_dir();
+        $fontCacheDir = $tempDir . '/dompdf_fonts';
+        if (!is_dir($fontCacheDir)) {
+            @mkdir($fontCacheDir, 0777, true);
+        }
+
         // Generate PDF
-        $pdf = Pdf::loadView('reports.pdf', compact('reports'));
+        $pdf = Pdf::loadView('reports.pdf', compact('reports'))
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'fontDir' => base_path('vendor/dompdf/dompdf/lib/fonts'),
+                'fontCache' => $fontCacheDir,
+                'tempDir' => $tempDir,
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+            ]);
 
         // Download PDF
         return $pdf->download('laporan_keuangan.pdf');

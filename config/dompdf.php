@@ -45,9 +45,9 @@ return [
          * Times-Roman, Times-Bold, Times-BoldItalic, Times-Italic,
          * Symbol, ZapfDingbats.
          */
-        'font_dir' => env('DOMPDF_FONT_DIR', sys_get_temp_dir()), // writable in serverless /tmp
-        'font_cache' => env('DOMPDF_FONT_CACHE', sys_get_temp_dir()), // writable in serverless /tmp
-        'temp_dir' => env('DOMPDF_TEMP_DIR', sys_get_temp_dir()),
+        'font_dir' => base_path('vendor/dompdf/dompdf/lib/fonts'), // original standard fonts
+        'font_cache' => sys_get_temp_dir() . '/dompdf_fonts', // writable cache in /tmp
+        'temp_dir' => sys_get_temp_dir(),
 
         /**
          * ==== IMPORTANT ====

@@ -26,14 +26,22 @@ class AppServiceProvider extends ServiceProvider
 
         // Dompdf configuration for serverless writable /tmp
         $tempDir = sys_get_temp_dir();
-        $fontDir = $tempDir . '/dompdf_fonts';
-        if (!is_dir($fontDir)) {
-            @mkdir($fontDir, 0777, true);
+        $fontCacheDir = $tempDir . '/dompdf_fonts';
+        if (!is_dir($fontCacheDir)) {
+            @mkdir($fontCacheDir, 0777, true);
+        }
+        $vendorFontsDir = base_path('vendor/dompdf/dompdf/lib/fonts');
+        if (is_dir($vendorFontsDir) && file_exists($vendorFontsDir . '/installed-fonts.dist.json')) {
+            if (!file_exists($fontCacheDir . '/installed-fonts.json')) {
+                @copy($vendorFontsDir . '/installed-fonts.dist.json', $fontCacheDir . '/installed-fonts.json');
+            }
         }
         config([
-            'dompdf.options.font_dir' => $fontDir,
-            'dompdf.options.font_cache' => $fontDir,
+            'dompdf.options.font_dir' => $vendorFontsDir,
+            'dompdf.options.font_cache' => $fontCacheDir,
             'dompdf.options.temp_dir' => $tempDir,
+            'dompdf.options.isHtml5ParserEnabled' => true,
+            'dompdf.options.isRemoteEnabled' => true,
         ]);
     }
 }
