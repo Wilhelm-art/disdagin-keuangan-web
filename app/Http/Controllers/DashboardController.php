@@ -6,7 +6,8 @@ use App\Models\Incomes;
 use App\Models\Expenses;
 use App\Models\Balance;
 use App\Models\Categories;
-use App\Models\Budget; // Pastikan model Budget sudah ada
+use App\Models\Budget;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -17,30 +18,42 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // Ambil total pemasukan, pengeluaran, balance, kategori, dan anggaran
-        $total_incomes = Incomes::totalIncomes();
-        $total_balance = Balance::totalBalance();
-        $total_categories = Categories::totalCategories();
-        $total_expenses = Expenses::totalExpenses();
-        $total_budget = Budget::sum('total_amount'); // Ambil total anggaran
+        // 1. Ringkasan Pagu & Realisasi
+        $total_incomes = Incomes::sum('amount');
+        $total_expenses = Expenses::sum('amount');
+        $total_budget = Budget::sum('total_amount');
+        $total_categories = Categories::count();
+        $total_balance = $total_incomes - $total_expenses;
 
-        // Ambil semua data pemasukan dan pengeluaran dari model balance
-        $incomesAndExpenses = Balance::getAllIncomesAndExpenses();
+        // 2. Ambil 10 transaksi kas terbaru secara teroptimasi (bukan load seluruh isi tabel)
+        $latestIncomes = Incomes::latest('date')->take(10)->get()->map(function ($item) {
+            $item->type = 'income';
+            return $item;
+        });
+        $latestExpenses = Expenses::latest('date')->take(10)->get()->map(function ($item) {
+            $item->type = 'expense';
+            return $item;
+        });
+        $incomesAndExpenses = $latestIncomes->concat($latestExpenses)->sortByDesc('date')->take(10);
 
-        // Ambil semua data kategori dari model categories
-        $categories = Categories::getAll();
+        // 3. Kategori untuk label transaksi
+        $categories = Categories::select('id_category', 'name_category')->get();
 
-        // Ambil data pemasukan dan pengeluaran per bulan & tahun sesuai driver DB (MySQL / PostgreSQL)
-        $driver = \Illuminate\Support\Facades\DB::getDriverName();
+        // 4. Data tren bulanan & tahunan (Support PostgreSQL & MySQL)
+        $driver = DB::getDriverName();
+        $currentYear = (int)date('Y');
+
         if ($driver === 'pgsql') {
-            $monthlyIncomes = Incomes::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
-                ->groupByRaw('EXTRACT(YEAR FROM date), EXTRACT(MONTH FROM date)')
-                ->orderByRaw('EXTRACT(YEAR FROM date) asc, EXTRACT(MONTH FROM date) asc')
+            $monthlyIncomes = Incomes::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, SUM(amount) as total')
+                ->whereRaw('EXTRACT(YEAR FROM date) = ?', [$currentYear])
+                ->groupByRaw('EXTRACT(MONTH FROM date)')
+                ->orderByRaw('EXTRACT(MONTH FROM date) asc')
                 ->get();
 
-            $monthlyExpenses = Expenses::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
-                ->groupByRaw('EXTRACT(YEAR FROM date), EXTRACT(MONTH FROM date)')
-                ->orderByRaw('EXTRACT(YEAR FROM date) asc, EXTRACT(MONTH FROM date) asc')
+            $monthlyExpenses = Expenses::selectRaw('CAST(EXTRACT(MONTH FROM date) AS INTEGER) as month, SUM(amount) as total')
+                ->whereRaw('EXTRACT(YEAR FROM date) = ?', [$currentYear])
+                ->groupByRaw('EXTRACT(MONTH FROM date)')
+                ->orderByRaw('EXTRACT(MONTH FROM date) asc')
                 ->get();
 
             $yearlyIncomes = Incomes::selectRaw('CAST(EXTRACT(YEAR FROM date) AS INTEGER) as year, SUM(amount) as total')
@@ -53,15 +66,15 @@ class DashboardController extends Controller
                 ->orderByRaw('EXTRACT(YEAR FROM date) asc')
                 ->get();
         } else {
-            $monthlyIncomes = Incomes::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
-                ->groupBy('month', 'year')
-                ->orderBy('year', 'asc')
+            $monthlyIncomes = Incomes::selectRaw('MONTH(date) as month, SUM(amount) as total')
+                ->whereYear('date', $currentYear)
+                ->groupBy('month')
                 ->orderBy('month', 'asc')
                 ->get();
 
-            $monthlyExpenses = Expenses::selectRaw('MONTH(date) as month, YEAR(date) as year, SUM(amount) as total')
-                ->groupBy('month', 'year')
-                ->orderBy('year', 'asc')
+            $monthlyExpenses = Expenses::selectRaw('MONTH(date) as month, SUM(amount) as total')
+                ->whereYear('date', $currentYear)
+                ->groupBy('month')
                 ->orderBy('month', 'asc')
                 ->get();
 
@@ -82,7 +95,7 @@ class DashboardController extends Controller
             'total_balance' => $total_balance,
             'total_categories' => $total_categories,
             'total_expenses' => $total_expenses,
-            'total_budget' => $total_budget, // Kirim total budget ke view
+            'total_budget' => $total_budget,
             'incomesAndExpenses' => $incomesAndExpenses,
             'categories' => $categories,
             'monthlyIncomes' => $monthlyIncomes,

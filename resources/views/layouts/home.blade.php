@@ -18,7 +18,7 @@
   <meta name="keywords" content="disdagin kota bandung, dinas perdagangan dan perindustrian kota bandung, sipk disdagin, keuangan disdagin, realisasi anggaran disdagin, apbd kota bandung, arimbi bandung, pasar kota bandung, metrologi legal bandung">
   <meta name="author" content="Dinas Perdagangan dan Perindustrian Kota Bandung">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://paynote-web-flax.vercel.app/">
+  <link rel="canonical" href="https://disdagin.vercel.app/">
 
   <!-- ===================================================================
        GEO-TARGETING & LOCAL SEO (BANDUNG, JAWA BARAT, ID)
@@ -32,11 +32,11 @@
        OPEN GRAPH / FACEBOOK SOCIAL METADATA
        =================================================================== -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://paynote-web-flax.vercel.app/">
+  <meta property="og:url" content="https://disdagin.vercel.app/">
   <meta property="og:site_name" content="Dinas Perdagangan dan Perindustrian Kota Bandung">
   <meta property="og:title" content="SIPK DISDAGIN Kota Bandung - Pengelolaan Keuangan & Realisasi Anggaran">
   <meta property="og:description" content="Platform resmi perbendaharaan digital, penetapan pagu kegiatan APBD, penatausahaan kas, dan pelaporan keuangan terpadu DISDAGIN Kota Bandung.">
-  <meta property="og:image" content="https://paynote-web-flax.vercel.app/img/logo_kota_bandung.png">
+  <meta property="og:image" content="https://disdagin.vercel.app/img/logo_kota_bandung.png">
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="600">
   <meta property="og:image:alt" content="Lambang Resmi Pemerintah Kota Bandung">
@@ -46,10 +46,10 @@
        TWITTER CARDS
        =================================================================== -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://paynote-web-flax.vercel.app/">
+  <meta name="twitter:url" content="https://disdagin.vercel.app/">
   <meta name="twitter:title" content="SIPK DISDAGIN Kota Bandung - Pengelolaan Keuangan">
   <meta name="twitter:description" content="Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran belanja daerah Dinas Perdagangan dan Perindustrian Kota Bandung.">
-  <meta name="twitter:image" content="https://paynote-web-flax.vercel.app/img/logo_kota_bandung.png">
+  <meta name="twitter:image" content="https://disdagin.vercel.app/img/logo_kota_bandung.png">
 
   <!-- ===================================================================
        PAGESPEED: RESOURCE HINTS & PRECONNECT
@@ -63,7 +63,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo_kota_bandung.png') }}">
   <link rel="apple-touch-icon" href="{{ asset('img/logo_kota_bandung.png') }}">
 
-  <!-- Fonts & Icons with font-display swap -->
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -99,7 +99,7 @@
     .navbar-disdagin {
       background-color: #0c264c;
       box-shadow: 0 4px 20px rgba(12, 38, 76, 0.15);
-      padding: 0.75rem 0;
+      padding: 0.65rem 0;
       transition: all 0.3s ease;
     }
     .navbar-disdagin .navbar-brand {
@@ -111,32 +111,64 @@
     .navbar-disdagin .nav-link {
       color: rgba(255, 255, 255, 0.88) !important;
       font-weight: 500;
-      font-size: 0.92rem;
-      padding: 0.6rem 1rem !important;
-      min-height: 44px;
+      font-size: 0.9rem;
+      padding: 0.55rem 0.85rem !important;
+      min-height: 42px;
       display: inline-flex;
       align-items: center;
       transition: all 0.2s ease;
       border-radius: 6px;
     }
-    .navbar-disdagin .nav-link:hover {
+    .navbar-disdagin .nav-link:hover,
+    .navbar-disdagin .nav-item.show .nav-link {
       color: #fcb900 !important;
       background: rgba(255, 255, 255, 0.08);
+    }
+    .navbar-disdagin .dropdown-menu {
+      background-color: #081a35;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      padding: 8px;
+      margin-top: 6px;
+    }
+    .navbar-disdagin .dropdown-item {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.86rem;
+      padding: 9px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    .navbar-disdagin .dropdown-item:hover {
+      background: rgba(24, 144, 215, 0.25);
+      color: #fcb900;
+      padding-left: 18px;
+    }
+    .navbar-disdagin .dropdown-item i {
+      width: 20px;
+      margin-right: 8px;
+      color: var(--disdagin-blue);
+    }
+    .navbar-disdagin .dropdown-item:hover i {
+      color: #fcb900;
     }
     .navbar-disdagin .btn-sso {
       background: linear-gradient(135deg, #1890d7 0%, #0c264c 100%);
       color: #ffffff !important;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       border-radius: 30px;
-      padding: 0.6rem 1.4rem;
-      min-height: 44px;
+      padding: 0.55rem 1.3rem;
+      min-height: 42px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 4px 15px rgba(24, 144, 215, 0.3);
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
     .navbar-disdagin .btn-sso:hover {
       transform: translateY(-2px);
@@ -153,9 +185,19 @@
         margin-top: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
+      .navbar-disdagin .nav-link {
+        width: 100%;
+        padding: 10px 14px !important;
+      }
+      .navbar-disdagin .dropdown-menu {
+        background: rgba(255, 255, 255, 0.04);
+        border: none;
+        box-shadow: none;
+        padding-left: 12px;
+      }
       .navbar-disdagin .btn-sso {
         width: 100%;
-        margin-top: 8px;
+        margin-top: 10px;
       }
     }
 
@@ -209,7 +251,6 @@
 
   <!-- ===================================================================
        AEO & STRUCTURED DATA: JSON-LD (SCHEMA.ORG)
-       GovernmentOrganization, WebSite, FAQPage, BreadcrumbList
        =================================================================== -->
   <script type="application/ld+json">
   {
@@ -217,13 +258,13 @@
     "@graph": [
       {
         "@type": "GovernmentOrganization",
-        "@id": "https://paynote-web-flax.vercel.app/#organization",
+        "@id": "https://disdagin.vercel.app/#organization",
         "name": "Dinas Perdagangan dan Perindustrian Kota Bandung",
         "alternateName": ["DISDAGIN Kota Bandung", "Dinas Perdagangan & Perindustrian Kota Bandung"],
         "url": "https://multisite.bandung.go.id/disdagin/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://paynote-web-flax.vercel.app/img/logo_kota_bandung.png",
+          "url": "https://disdagin.vercel.app/img/logo_kota_bandung.png",
           "width": 600,
           "height": 600
         },
@@ -258,36 +299,36 @@
       },
       {
         "@type": "WebSite",
-        "@id": "https://paynote-web-flax.vercel.app/#website",
-        "url": "https://paynote-web-flax.vercel.app/",
+        "@id": "https://disdagin.vercel.app/#website",
+        "url": "https://disdagin.vercel.app/",
         "name": "SIPK DISDAGIN Kota Bandung",
         "description": "Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran Dinas Perdagangan dan Perindustrian Kota Bandung.",
         "publisher": {
-          "@id": "https://paynote-web-flax.vercel.app/#organization"
+          "@id": "https://disdagin.vercel.app/#organization"
         },
         "inLanguage": "id-ID"
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://paynote-web-flax.vercel.app/#breadcrumb",
+        "@id": "https://disdagin.vercel.app/#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
             "name": "Beranda",
-            "item": "https://paynote-web-flax.vercel.app/"
+            "item": "https://disdagin.vercel.app/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Masuk Sistem",
-            "item": "https://paynote-web-flax.vercel.app/login"
+            "item": "https://disdagin.vercel.app/login"
           }
         ]
       },
       {
         "@type": "FAQPage",
-        "@id": "https://paynote-web-flax.vercel.app/#faq",
+        "@id": "https://disdagin.vercel.app/#faq",
         "mainEntity": [
           {
             "@type": "Question",
@@ -368,43 +409,118 @@
     </div>
   </div>
 
-  <!-- Main Navigation Bar -->
+  <!-- Main Navigation Bar (With User-Requested Structure) -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-disdagin sticky-top" aria-label="Navigasi Utama">
     <div class="container">
+      
+      <!-- Brand & Emblem -->
       <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Resmi Pemerintah Kota Bandung" width="48" height="48" fetchpriority="high" style="height: 48px; width: auto;">
+        <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Resmi Pemerintah Kota Bandung" width="46" height="46" fetchpriority="high" style="height: 46px; width: auto;">
         <div class="d-flex flex-column">
-          <span class="font-weight-bold text-white text-uppercase" style="font-size: 1.05rem; letter-spacing: 0.3px; line-height: 1.2;">
+          <span class="font-weight-bold text-white text-uppercase" style="font-size: 1.05rem; letter-spacing: 0.3px; line-height: 1.15;">
             DISDAGIN
           </span>
-          <span class="text-white-50 small" style="font-size: 0.72rem; letter-spacing: 0.5px;">
-            DINAS PERDAGANGAN & PERINDUSTRIAN KOTA BANDUNG
+          <span class="text-white-50 small" style="font-size: 0.7rem; letter-spacing: 0.5px;">
+            KOTA BANDUNG
           </span>
         </div>
       </a>
 
+      <!-- Hamburger Button -->
       <button class="navbar-toggler border-0 p-2" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Buka Menu Navigasi" style="min-width: 44px; min-height: 44px;">
         <i class="fas fa-bars text-white fa-lg"></i>
       </button>
 
+      <!-- Nav Items -->
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav ml-auto align-items-center">
+
+          <!-- 1. Portal Utama -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/') }}"><i class="fas fa-home mr-1"></i>Beranda</a>
+            <a class="nav-link" href="https://www.bandung.go.id" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-landmark mr-1 text-warning"></i>Portal Utama
+            </a>
           </li>
+
+          <!-- 2. Beranda -->
           <li class="nav-item">
-            <a class="nav-link" href="#tentang"><i class="fas fa-info-circle mr-1"></i>Tentang</a>
+            <a class="nav-link" href="{{ url('/') }}">
+              <i class="fas fa-home mr-1 text-info"></i>Beranda
+            </a>
           </li>
+
+          <!-- 3. Profil (Dropdown) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navProfilDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-building mr-1"></i>Profil
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navProfilDropdown">
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/struktur-organisasi/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-sitemap"></i>Struktur Organisasi
+              </a>
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/sejarah-visi-dan-misi/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-bullseye"></i>Sejarah, Visi & Misi
+              </a>
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/tupoksi/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-tasks"></i>Tugas Pokok & Fungsi
+              </a>
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/daftar-pegawai/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-users"></i>Daftar Pegawai
+              </a>
+            </div>
+          </li>
+
+          <!-- 4. PPID (Dropdown) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navPpidDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-info-circle mr-1"></i>PPID
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navPpidDropdown">
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/profil-ppid/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-id-card"></i>Profil PPID DISDAGIN
+              </a>
+              <a class="dropdown-item" href="https://ppid.bandung.go.id/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-file-alt"></i>Permohonan Informasi Online
+              </a>
+              <a class="dropdown-item" href="https://ppid.bandung.go.id/profile" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-external-link-alt"></i>PPID Utama Kota Bandung
+              </a>
+            </div>
+          </li>
+
+          <!-- 5. Informasi (Dropdown) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navInfoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-database mr-1"></i>Informasi
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navInfoDropdown">
+              <a class="dropdown-item" href="https://arimbi.bandung.go.id/market" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-shopping-basket"></i>Harga Bahan Pokok (ARIMBI)
+              </a>
+              <a class="dropdown-item" href="https://smartcity.bandung.go.id/forum/search_result?q=%23daginUTTP" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-balance-scale"></i>Kemetrologian Legal (UTTP)
+              </a>
+              <a class="dropdown-item" href="https://smartcity.bandung.go.id/forum/search_result?q=%23daginIKM" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-industry"></i>Sentra Industri & IKM
+              </a>
+              <a class="dropdown-item" href="https://smartcity.bandung.go.id/forum/search_result?q=%23daginkomoditiekspor" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-ship"></i>Data Realisasi Ekspor
+              </a>
+              <a class="dropdown-item" href="https://multisite.bandung.go.id/disdagin/mesin-industri/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-cogs"></i>Fasilitasi Mesin Balai Industri
+              </a>
+            </div>
+          </li>
+
+          <!-- 6. Kontak -->
           <li class="nav-item">
-            <a class="nav-link" href="#pilar"><i class="fas fa-shield-alt mr-1"></i>Pilar SIPK</a>
+            <a class="nav-link" href="#kontak">
+              <i class="fas fa-phone-alt mr-1"></i>Kontak
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#layanan"><i class="fas fa-th-large mr-1"></i>Layanan Publik</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#faq"><i class="fas fa-question-circle mr-1"></i>FAQ</a>
-          </li>
-          <li class="nav-item ml-lg-3 mt-2 mt-lg-0 w-100 w-lg-auto">
+
+          <!-- 7. Tombol Masuk Sistem Keuangan (SSO) -->
+          <li class="nav-item ml-lg-2 mt-2 mt-lg-0 w-100 w-lg-auto">
             @auth
               <a href="{{ route('dashboard') }}" class="btn btn-sso">
                 <i class="fas fa-tachometer-alt mr-1"></i>Ke Dashboard
@@ -415,6 +531,7 @@
               </a>
             @endauth
           </li>
+
         </ul>
       </div>
     </div>
@@ -425,8 +542,8 @@
     @yield('content')
   </main>
 
-  <!-- Official Government Footer -->
-  <footer class="footer-disdagin pt-5">
+  <!-- Official Government Footer (With ID #kontak for smooth scroll) -->
+  <footer class="footer-disdagin pt-5" id="kontak">
     <div class="container pb-4">
       <div class="row">
         <!-- Col 1: Instansi Profile -->
@@ -505,7 +622,7 @@
     </div>
   </footer>
 
-  <!-- Scripts with defer where appropriate -->
+  <!-- Scripts -->
   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>

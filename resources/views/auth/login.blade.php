@@ -2,154 +2,201 @@
 
 @section('title', 'Masuk Sistem - SIPK DISDAGIN Kota Bandung')
 
+@push('styles')
+<style>
+  .login-wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  .login-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+  }
+  .login-header {
+    background: linear-gradient(180deg, #0c264c 0%, #081a35 100%);
+    color: #ffffff;
+    padding: 32px 24px 28px;
+    text-align: center;
+    position: relative;
+    border-bottom: 3px solid var(--disdagin-gold);
+  }
+  .login-body {
+    padding: 32px 30px 24px;
+  }
+  .input-icon-group {
+    position: relative;
+  }
+  .input-icon-group .form-control {
+    height: 48px;
+    border-radius: 10px;
+    padding-left: 44px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  .input-icon-group .form-control:focus {
+    border-color: var(--disdagin-blue);
+    box-shadow: 0 0 0 3px rgba(24, 144, 215, 0.18);
+  }
+  .input-icon-group .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .input-icon-group .btn-toggle-pw {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #64748b;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .btn-login-submit {
+    height: 50px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0c264c 0%, #163e77 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 16px rgba(12, 38, 76, 0.25);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .btn-login-submit:hover {
+    background: linear-gradient(135deg, #163e77 0%, #1890d7 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(12, 38, 76, 0.35);
+  }
+</style>
+@endpush
+
 @section('content')
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-xl-10 col-lg-11">
-      
-      <div class="auth-card">
-        <div class="row no-gutters">
+<div class="login-wrapper">
 
-          <!-- Left Branding Column -->
-          <div class="col-md-5 auth-sidebar">
-            <div>
-              <div class="d-flex align-items-center mb-4">
-                <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Kota Bandung" style="height: 58px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));" class="mr-3">
-                <div>
-                  <div class="text-warning font-weight-bold" style="font-size: 0.72rem; letter-spacing: 1px;">PEMERINTAH KOTA BANDUNG</div>
-                  <div class="text-white font-weight-bold" style="font-size: 0.88rem; line-height: 1.2;">DINAS PERDAGANGAN & PERINDUSTRIAN</div>
-                </div>
-              </div>
+  <div class="login-card">
 
-              <h3 class="text-white font-weight-bold mb-2" style="letter-spacing: -0.5px;">
-                SIPK DISDAGIN
-              </h3>
-              <p class="text-white-50 small mb-4" style="line-height: 1.6;">
-                Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran belanja daerah terpadu.
-              </p>
-
-              <div class="p-3 rounded mb-4" style="background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);">
-                <div class="d-flex align-items-start">
-                  <i class="fas fa-shield-alt text-warning fa-lg mr-3 mt-1"></i>
-                  <div>
-                    <div class="font-weight-bold text-white small">Akses Khusus Aparatur</div>
-                    <div class="text-white-50 small" style="font-size: 0.76rem;">
-                      Sistem tertutup berdasar otoritas role. Seluruh aktivitas audit tercatat secara otomatis.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-3 border-top border-white-50">
-              <a href="{{ url('/') }}" class="text-white-50 small font-weight-bold text-decoration-none">
-                <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda Utama
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Form Column -->
-          <div class="col-md-7 auth-form-side">
-            <div class="text-left mb-4">
-              <span class="badge badge-light border text-primary font-weight-bold px-2 py-1 mb-2" style="font-size: 0.75rem;">
-                <i class="fas fa-user-lock mr-1"></i>AUTENTIKASI PEGAWAI
-              </span>
-              <h2 class="h4 font-weight-bold text-gray-900 mb-1">Masuk ke Akun Anda</h2>
-              <p class="text-muted small">Silakan masukkan alamat email dan kata sandi kedinasan Anda.</p>
-            </div>
-
-            @if(session('error'))
-              <div class="alert alert-danger alert-dismissible fade show small" role="alert">
-                <i class="fas fa-exclamation-circle mr-1"></i> {{ session('error') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            @endif
-
-            <form method="POST" action="{{ route('login') }}" class="user">
-              @csrf
-
-              <!-- Email Field -->
-              <div class="form-group mb-3">
-                <label for="email" class="small font-weight-bold text-gray-700">Alamat Email Kedinasan</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text bg-light border-right-0 text-muted">
-                      <i class="fas fa-envelope"></i>
-                    </span>
-                  </div>
-                  <input id="email" type="email"
-                         class="form-control border-left-0 @error('email') is-invalid @enderror"
-                         name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                         placeholder="nama@disdagin.bandung.go.id">
-                </div>
-                @error('email')
-                  <span class="text-danger small font-weight-bold mt-1 d-block" role="alert">
-                    {{ $message }}
-                  </span>
-                @enderror
-              </div>
-
-              <!-- Password Field -->
-              <div class="form-group mb-3">
-                <label for="password" class="small font-weight-bold text-gray-700">Kata Sandi</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text bg-light border-right-0 text-muted">
-                      <i class="fas fa-lock"></i>
-                    </span>
-                  </div>
-                  <input id="password" type="password"
-                         class="form-control border-left-0 border-right-0 @error('password') is-invalid @enderror"
-                         name="password" required autocomplete="current-password"
-                         placeholder="••••••••">
-                  <div class="input-group-append">
-                    <button class="btn btn-light border border-left-0 text-muted" type="button" id="togglePasswordBtn">
-                      <i class="fas fa-eye" id="togglePasswordIcon"></i>
-                    </button>
-                  </div>
-                </div>
-                @error('password')
-                  <span class="text-danger small font-weight-bold mt-1 d-block" role="alert">
-                    {{ $message }}
-                  </span>
-                @enderror
-              </div>
-
-              <!-- Remember Me & Help -->
-              <div class="form-group d-flex justify-content-between align-items-center mb-4">
-                <div class="custom-control custom-checkbox small">
-                  <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                  <label class="custom-control-label text-muted" for="remember">Ingat Saya di Perangkat Ini</label>
-                </div>
-              </div>
-
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-primary btn-block font-weight-bold py-2 shadow-sm" style="font-size: 0.95rem; border-radius: 8px;">
-                <i class="fas fa-sign-in-alt mr-2"></i>Masuk ke Sistem Keuangan
-              </button>
-            </form>
-
-            <div class="mt-4 pt-3 border-top text-center">
-              <p class="small text-muted mb-0" style="font-size: 0.78rem;">
-                <i class="fas fa-info-circle mr-1 text-info"></i>
-                Pendaftaran akun baru dilakukan oleh <strong>Administrator Sistem</strong> sesuai Surat Tugas/SK Kedinasan.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
+    <!-- Official Government Header -->
+    <div class="login-header">
+      <div class="mb-3">
+        <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Resmi Pemerintah Kota Bandung" width="76" height="76" style="height: 76px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));" fetchpriority="high">
       </div>
+      <div class="text-warning font-weight-bold" style="font-size: 0.76rem; letter-spacing: 1.2px;">
+        PEMERINTAH KOTA BANDUNG
+      </div>
+      <h1 class="h5 font-weight-bold text-white mb-2" style="line-height: 1.3;">
+        DINAS PERDAGANGAN & PERINDUSTRIAN
+      </h1>
+      <span class="badge badge-light border text-primary font-weight-bold px-3 py-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">
+        SIPK — SISTEM PENGELOLAAN KEUANGAN
+      </span>
+    </div>
 
-      <!-- Small Footer Outside Card -->
-      <div class="text-center text-white-50 mt-4 small">
-        <span>&copy; {{ date('Y') }} Dinas Perdagangan dan Perindustrian Kota Bandung. Jl. Tamansari No. 59.</span>
+    <!-- Login Form Body -->
+    <div class="login-body">
+
+      @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+          <i class="fas fa-exclamation-circle mr-1"></i> {{ session('error') }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      @endif
+
+      <form method="POST" action="{{ route('login') }}" class="user">
+        @csrf
+
+        <!-- Email Field -->
+        <div class="form-group mb-3">
+          <label for="email" class="small font-weight-bold text-dark mb-1">Alamat Email Kedinasan</label>
+          <div class="input-icon-group">
+            <i class="fas fa-envelope input-icon"></i>
+            <input id="email" type="email"
+                   class="form-control @error('email') is-invalid @enderror"
+                   name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                   placeholder="nama@disdagin.bandung.go.id">
+          </div>
+          @error('email')
+            <span class="text-danger small font-weight-bold mt-1 d-block" role="alert">
+              {{ $message }}
+            </span>
+          @enderror
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group mb-3">
+          <label for="password" class="small font-weight-bold text-dark mb-1">Kata Sandi</label>
+          <div class="input-icon-group">
+            <i class="fas fa-lock input-icon"></i>
+            <input id="password" type="password"
+                   class="form-control @error('password') is-invalid @enderror"
+                   name="password" required autocomplete="current-password"
+                   placeholder="••••••••">
+            <button class="btn-toggle-pw" type="button" id="togglePasswordBtn" aria-label="Lihat Kata Sandi">
+              <i class="fas fa-eye" id="togglePasswordIcon"></i>
+            </button>
+          </div>
+          @error('password')
+            <span class="text-danger small font-weight-bold mt-1 d-block" role="alert">
+              {{ $message }}
+            </span>
+          @enderror
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="form-group d-flex justify-content-between align-items-center mb-4">
+          <div class="custom-control custom-checkbox small">
+            <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label class="custom-control-label text-muted" for="remember">Ingat Sesi di Perangkat Ini</label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-login-submit">
+          <i class="fas fa-sign-in-alt mr-2"></i>Masuk ke Sistem Keuangan
+        </button>
+      </form>
+
+      <!-- Security Notice -->
+      <div class="mt-4 pt-3 border-top text-center">
+        <p class="small text-muted mb-2" style="font-size: 0.75rem; line-height: 1.5;">
+          <i class="fas fa-shield-alt text-warning mr-1"></i>
+          Akses terbatas khusus aparatur berwenang DISDAGIN Kota Bandung. Pendaftaran akun baru dilakukan oleh <strong>Administrator Sistem</strong>.
+        </p>
+        <a href="{{ url('/') }}" class="small text-primary font-weight-bold text-decoration-none">
+          <i class="fas fa-arrow-left mr-1"></i>Kembali ke Beranda Utama
+        </a>
       </div>
 
     </div>
+
   </div>
+
+  <!-- Copyright Outside Card -->
+  <div class="text-center text-white-50 mt-3 small" style="font-size: 0.78rem;">
+    <span>&copy; {{ date('Y') }} Pemerintah Kota Bandung — Dinas Perdagangan dan Perindustrian</span>
+  </div>
+
 </div>
 @endsection
 
