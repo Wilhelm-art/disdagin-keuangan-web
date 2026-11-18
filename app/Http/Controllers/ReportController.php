@@ -26,28 +26,37 @@ class ReportController extends Controller
 
     public function exportPdf(Request $request)
     {
-        // Ambil data laporan dengan filter
-        $reports = $this->getFilteredReports($request);
+        try {
+            // Ambil data laporan dengan filter
+            $reports = $this->getFilteredReports($request);
 
-        $tempDir = sys_get_temp_dir();
-        $fontCacheDir = $tempDir . '/dompdf_fonts';
-        if (!is_dir($fontCacheDir)) {
-            @mkdir($fontCacheDir, 0777, true);
+            $tempDir = sys_get_temp_dir();
+            $fontCacheDir = $tempDir . '/dompdf_fonts';
+            if (!is_dir($fontCacheDir)) {
+                @mkdir($fontCacheDir, 0777, true);
+            }
+
+            // Generate PDF
+            $pdf = Pdf::loadView('reports.pdf', compact('reports'))
+                ->setPaper('a4', 'portrait')
+                ->setOptions([
+                    'fontDir' => base_path('vendor/dompdf/dompdf/lib/fonts'),
+                    'fontCache' => $fontCacheDir,
+                    'tempDir' => $tempDir,
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                ]);
+
+            // Download PDF
+            return $pdf->download('laporan_keuangan.pdf');
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => explode("\n", $e->getTraceAsString())
+            ], 500);
         }
-
-        // Generate PDF
-        $pdf = Pdf::loadView('reports.pdf', compact('reports'))
-            ->setPaper('a4', 'portrait')
-            ->setOptions([
-                'fontDir' => base_path('vendor/dompdf/dompdf/lib/fonts'),
-                'fontCache' => $fontCacheDir,
-                'tempDir' => $tempDir,
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-            ]);
-
-        // Download PDF
-        return $pdf->download('laporan_keuangan.pdf');
     }
 
     public function exportExcel(Request $request)
