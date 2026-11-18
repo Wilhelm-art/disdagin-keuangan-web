@@ -18,5 +18,8 @@ yarn-error.log
 /.idea
 /.vscode
 cloudflared.exe
-
 .vercel
+
+# Development & Test Scratch Files
+/scratch/
+*.log

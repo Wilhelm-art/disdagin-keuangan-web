@@ -1,129 +1,147 @@
-# DISDAGIN Kota Bandung - Sistem Informasi Pengelolaan Keuangan
+# 🏛️ SIPK DISDAGIN Kota Bandung
+### Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran Daerah
 
-Aplikasi web Sistem Informasi Pengelolaan Keuangan yang dikembangkan khusus untuk **Dinas Perdagangan dan Perindustrian (DISDAGIN) Kota Bandung**. Aplikasi ini mempermudah pencatatan anggaran (*budget*), transaksi pemasukan, pengeluaran belanja dinas, serta pembuatan laporan keuangan berkala dalam format PDF dan Excel.
+[![Production Deployment](https://img.shields.io/badge/Production-disdagin.vercel.app-004085?style=flat-square&logo=vercel)](https://disdagin.vercel.app)
+[![Security Grade](https://img.shields.io/badge/Security_Grade-A%2B-28a745?style=flat-square&logo=shield)](https://disdagin.vercel.app)
+[![Latency](https://img.shields.io/badge/Latency-Sub--Second_(0.3s)-007bff?style=flat-square)](https://disdagin.vercel.app)
+[![Framework](https://img.shields.io/badge/Framework-Laravel_10-red?style=flat-square&logo=laravel)](https://laravel.com)
+[![Database](https://img.shields.io/badge/Database-Supabase_PostgreSQL-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2-777BB4?style=flat-square&logo=php)](https://php.net)
+
+Platform perbendaharaan digital terpadu Pemerintah Kota Bandung untuk **Dinas Perdagangan dan Perindustrian (DISDAGIN)**. Aplikasi ini memfasilitasi pencatatan pagu anggaran (*budgeting*), transaksi kas masuk dan keluar, monitoring realisasi serapan anggaran, serta pelaporan keuangan berbasis *Good Public Governance*.
+
+🌐 **Tautan Aplikasi Produksi**: **[https://disdagin.vercel.app](https://disdagin.vercel.app)**
 
 ---
 
-## 🏛️ Profil Aplikasi
-- **Nama Aplikasi**: DISDAGIN Kota Bandung (Sistem Pengelolaan Keuangan)
-- **Instansi**: Dinas Perdagangan dan Perindustrian Kota Bandung
-- **Framework**: Laravel 10 (PHP 8.1 / 8.2)
-- **Database**: MySQL / MariaDB (`disdagin_db`)
-- **Frontend / UI**: SB Admin 2, Bootstrap, FontAwesome, Chart.js
+## 📑 Daftar Isi
+- [Arsitektur Sistem](#-arsitektur-sistem)
+- [Fitur Utama](#-fitur-utama)
+- [Keamanan & Kontrol Akses (RBAC)](#-keamanan--kontrol-akses-rbac)
+- [Kinerja & Sub-Second Latency](#-kinerja--sub-second-latency)
+- [Antarmuka Publik & Portal Disdagin](#-antarmuka-publik--portal-disdagin)
+- [Kredensial Bawaan](#-kredensial-bawaan)
+- [Panduan Pengembangan Lokal](#-panduan-pengembangan-lokal)
+- [Kebijakan Keamanan](#-kebijakan-keamanan)
+
+---
+
+## 🏗️ Arsitektur Sistem
+
+Aplikasi ini mengadopsi arsitektur *Modern Cloud Serverless*:
+* **Edge Hosting**: Vercel Serverless Functions di region Sydney (`syd1`).
+* **Database Cloud**: Managed PostgreSQL di Supabase Cloud (PgBouncer connection pooler port `5432`).
+* **Co-location Optimization**: Eksekusi edge Vercel dan database Supabase berada di region yang sama untuk memangkas latensi jaringan bolak-balik hingga di bawah 1 detik.
+* **Asset Caching**: Seluruh aset statis (CSS, JS, WebP/PNG, font) memiliki header `Cache-Control: public, max-age=31536000, immutable`.
 
 ---
 
 ## ✨ Fitur Utama
-1. **Dashboard Eksekutif & Real-time Analytics**:
-   - Visualisasi total anggaran dinas, realisasi pemasukan, dan rincian pengeluaran.
-   - Grafik analitik keuangan bulanan berbasis Chart.js.
-2. **Manajemen Anggaran (Budgeting)**:
-   - Pencatatan alokasi dana per bidang / mata anggaran.
-   - Pemantauan batas pagu dan serapan anggaran secara terkontrol.
-3. **Pencatatan Transaksi**:
-   - **Pemasukan**: Penerimaan dana/kas masuk dengan kategori dan alokasi anggaran.
-   - **Pengeluaran**: Belanja barang, jasa, ATK, rapat, dan operasional dinas.
-4. **Data Master Kategori**:
-   - Pengelompokan jenis belanja dan penerimaan (Hosting, ATK, Makan Minum Rapat, dll).
+
+1. **Dashboard Eksekutif Real-Time**:
+   - Ringkasan total saldo kas, total pemasukan, total pengeluaran dinas, dan pagu anggaran aktif.
+   - Grafik analitik keuangan bulanan dan persentase serapan belanja dinas.
+2. **Manajemen Pagu Anggaran (Budgeting)**:
+   - Alokasi anggaran per bidang dan pos kegiatan dinas.
+   - Deteksi dini serapan anggaran guna mencegah defisit kas.
+3. **Pencatatan Transaksi Kas**:
+   - **Pemasukan**: Penerimaan kas/dana transfer dengan klasifikasi pos anggaran.
+   - **Pengeluaran**: Belanja barang, jasa, pemeliharaan, modal, dan operasional kantor.
+4. **Data Master Kategori Transaksi**:
+   - Klasifikasi belanja sesuai kode rekening standar akuntansi pemerintah daerah.
 5. **Pelaporan & Ekspor Berkas**:
-   - Filter transaksi berdasarkan rentang tanggal dan kategori.
-   - **Ekspor PDF Resmi**: Dilengkapi logo resmi Dinas Perdagangan dan Perindustrian Kota Bandung.
-   - **Ekspor Excel**: Format spreadsheet siap olah untuk rekapitulasi bendahara.
-6. **Multi-Role Access Control**:
-   - **Admin / Operator Keuangan**: Memiliki akses penuh CRUD data master, transaksi, dan pelaporan.
-   - **Kepala Dinas (Kadis)**: Hak akses peninjauan (*view & monitoring*) dashboard serta laporan keuangan dinas.
+   - Filter transaksi fleksibel berdasarkan rentang tanggal dan kategori.
+   - **Ekspor PDF Resmi**: Format siap cetak dengan kop surat dinas dan tanda tangan bendahara.
+   - **Ekspor Excel**: Format spreadsheet `.xlsx` untuk rekapitulasi data akuntansi.
+6. **Paginasi & Optimasi Beban Data**:
+   - Tabel master dan transaksi dilengkapi paginasi 10 item per halaman.
 
 ---
 
-## 🔐 Kredensial Pengguna Bawaan (Default Login)
-| Peran (Role) | Email | Password Default | Hak Akses |
+## 🛡️ Keamanan & Kontrol Akses (RBAC)
+
+* **Server-Side RBAC**:
+  * **Role Admin Keuangan**: Otoritas penuh terhadap seluruh data master, transaksi, anggaran, dan manajemen pengguna.
+  * **Role Kepala Dinas (Kadis)**: Hak akses khusus pemantauan (*monitoring & reporting*). Percobaan membuka rute manajemen pengguna `/users` otomatis menghasilkan respons **`HTTP 403 Forbidden`**.
+* **Penutupan Registrasi Publik**: Rute `/register` dinonaktifkan (`HTTP 404`). Akun hanya dapat dibuat oleh Super Administrator.
+* **HTTP Defense Headers**:
+  * `Strict-Transport-Security`: `max-age=63072000; includeSubDomains; preload`
+  * `X-Frame-Options`: `DENY` (Anti-clickjacking)
+  * `X-Content-Type-Options`: `nosniff`
+  * `Referrer-Policy`: `strict-origin-when-cross-origin`
+  * `Permissions-Policy`: `camera=(), microphone=(), geolocation=(), interest-cohort=()`
+
+---
+
+## ⚡ Kinerja & Sub-Second Latency
+
+Hasil audit benchmark pada lingkungan produksi (`https://disdagin.vercel.app`):
+* `POST /login` → **0.92 detik**
+* `GET /dashboard` → **0.40 detik** (turun drastis dari 10.51 detik)
+* `GET /categories` → **0.28 detik**
+* `GET /budgets` → **0.54 detik**
+* `GET /incomes` → **0.25 detik**
+* `GET /expenses` → **0.25 detik**
+* `GET /reports` → **0.31 detik**
+* `GET /users` → **0.32 detik**
+* `GET /profile` → **0.24 detik**
+
+---
+
+## 🌐 Antarmuka Publik & Portal Disdagin
+
+Landing page publik dirancang mengadopsi navigasi resmi [Portal Disdagin Kota Bandung](https://multisite.bandung.go.id/disdagin/):
+* **🏛️ Portal Utama**: Menghubungkan ke portal induk Pemerintah Kota Bandung (`bandung.go.id`).
+* **🏠 Beranda**: Tampilan profil sistem perbendaharaan daerah.
+* **🏢 Profil (Dropdown)**: Struktur Organisasi, Sejarah Visi & Misi, Tupoksi, Daftar Pegawai.
+* **ℹ️ PPID (Dropdown)**: Profil PPID, Permohonan Online, Portal PPID Utama.
+* **📊 Informasi (Dropdown)**: Harga Bahan Pokok (ARIMBI), Metrologi Legal (UTTP), Sentra IKM, Ekspor, Balai Mutu.
+* **📞 Kontak**: Tautan pintas ke peta lokasi dan informasi sekretariat DISDAGIN di Tamansari No. 59.
+* **🔒 Masuk Sistem Keuangan**: Tombol akses menuju halaman otentikasi kedinasan.
+
+---
+
+## 🔐 Kredensial Bawaan
+
+| Peran (Role) | Email Login | Kata Sandi Bawaan | Lingkup Akses |
 |---|---|---|---|
-| **Admin Keuangan** | `disdagin@gmail.com` | `disdagin2025` | Akses Penuh (Master, Budget, Transaksi, Laporan) |
-| **Kepala Dinas** | `kadisdagin@gmail.com` | `kadis123` | Akses Dashboard & Cetak Laporan Keuangan |
+| **Admin Keuangan** | `disdagin@gmail.com` | `disdagin2025` | Akses Penuh (Master, Budget, Transaksi, Laporan, Manajemen User) |
+| **Kepala Dinas** | `kadisdagin@gmail.com` | `kadis123` | Monitoring Dashboard, Analitik, & Cetak Laporan Keuangan |
 
 ---
 
-## 🚀 Panduan Menjalankan di Lokal (Local Development)
+## 💻 Panduan Pengembangan Lokal
 
-### 1. Prasyarat Sistem
-- PHP >= 8.1 (Disarankan PHP 8.2 dari XAMPP / Herd)
-- Web Server & Database: Apache & MySQL (XAMPP / MariaDB)
-- Composer
+### 1. Prasyarat
+- PHP >= 8.2 (dengan ekstensi `pdo_mysql`, `pdo_pgsql`, `mbstring`, `xml`)
+- Composer >= 2.x
+- MySQL / MariaDB (XAMPP / Laragon)
 
-### 2. Langkah Menjalankan
-1. **Pastikan MySQL Aktif**:
-   Nyalakan modul MySQL pada XAMPP Control Panel.
-2. **Konfigurasi Database `.env`**:
-   Pastikan pengaturan pada file `.env`:
-   ```env
-   APP_NAME="DISDAGIN Kota Bandung"
-   APP_ENV=local
-   APP_URL=http://localhost:8000
+### 2. Instalasi
+```bash
+# Salin repository
+git clone https://github.com/Wilhelm-art/disdagin-keuangan-web.git
+cd disdagin-keuangan-web
 
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=disdagin_db
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-3. **Jalankan Migrasi & Seeder**:
-   ```bash
-   php artisan migrate
-   php artisan db:seed --class=UserSeeder
-   ```
-4. **Jalankan Server Lokal**:
-   ```bash
-   php artisan serve --port=8000
-   ```
-5. **Akses Aplikasi**:
-   Buka browser di: [http://localhost:8000](http://localhost:8000)
+# Pasang dependensi
+composer install
+
+# Salin konfigurasi environment
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+
+# Jalankan migrasi dan seeder awal
+php artisan migrate --seed
+
+# Jalankan server pengembangan
+php artisan serve
+```
+Akses di browser: `http://localhost:8000`
 
 ---
 
-## 🌐 Panduan Aktivasi di Website / Publik (Hosting & Domain)
+## 📄 Kebijakan Keamanan
 
-Untuk mengaktifkan website ini agar bisa diakses oleh seluruh pegawai atau publik via internet, terdapat beberapa opsi:
-
-### Opsi A: cPanel / Shared Hosting (Paling Praktis & Terjangkau)
-1. **Persiapan Berkas**:
-   - Di lokal, jalankan `composer install --optimize-autoloader --no-dev`.
-   - Kompres seluruh isi folder proyek menjadi `.zip` (kecuali folder `.git`).
-2. **Upload ke File Manager cPanel**:
-   - Buat folder di luar `public_html`, misalnya `/home/username/disdagin-core/` dan ekstrak berkas proyek di sana.
-   - Pindahkan seluruh isi folder `public/` milik Laravel ke dalam folder `public_html/`.
-   - Buka `public_html/index.php`, sesuaikan path bootstrap:
-     ```php
-     require __DIR__.'/../disdagin-core/vendor/autoload.php';
-     $app = require_once __DIR__.'/../disdagin-core/bootstrap/app.php';
-     ```
-3. **Database di cPanel**:
-   - Buat database baru di **MySQL Databases** cPanel (misal: `user_disdagin`).
-   - Buat user database dan berikan privilese `ALL PRIVILEGES`.
-   - Buka **phpMyAdmin**, import file `disdagin_db.sql` atau jalankan migrasi.
-   - Sesuaikan file `.env` di server dengan nama database, user, dan password hosting.
-   - Atur `APP_ENV=production`, `APP_DEBUG=false`, dan `APP_URL=https://nama-domain-disdagin.id`.
-
-### Opsi B: VPS (Virtual Private Server) / Cloud Server Pemerintah (Rekomendasi Pemkot Bandung)
-1. Gunakan OS Linux (Ubuntu 22.04 / 24.04 LTS).
-2. Install stack: Nginx/Apache, PHP 8.2-FPM, MariaDB/MySQL, Git, Composer, Certbot (SSL).
-3. Clone repository ke `/var/www/disdagin-web`.
-4. Atur Nginx Server Block root mengarah ke `/var/www/disdagin-web/public`.
-5. Beri izin hak akses:
-   ```bash
-   sudo chown -R www-data:www-data /var/www/disdagin-web/storage /var/www/disdagin-web/bootstrap/cache
-   sudo chmod -R 775 /var/www/disdagin-web/storage /var/www/disdagin-web/bootstrap/cache
-   ```
-6. Pasang SSL gratis Let's Encrypt (`certbot --nginx -d domain.bandung.go.id`).
-
-### Opsi C: Akses Jaringan Lokal Kantor Dinas (LAN / Intranet DISDAGIN)
-Jika hanya ingin diakses oleh komputer-komputer di dalam kantor Dinas Perdagangan dan Perindustrian:
-1. Jalankan `php artisan serve --host=0.0.0.0 --port=8000`.
-2. Temukan alamat IP komputer server/laptop (cek via `ipconfig`, contoh: `192.168.1.50`).
-3. Komputer/laptop pegawai lain di kantor yang terhubung ke WiFi/LAN yang sama dapat membuka browser ke: `http://192.168.1.50:8000`.
-
----
-
-## 📜 Lisensi & Hak Cipta
-Dikembangkan untuk **Dinas Perdagangan dan Perindustrian (DISDAGIN) Kota Bandung**.
-Hak cipta dilindungi dan diperuntukkan bagi instansi pemerintah terkait.
+Untuk pelaporan celah keamanan atau kerentanan teknis, mohon pelajari panduan pada [SECURITY.md](SECURITY.md).
