@@ -4,8 +4,6 @@
  * Colors: Deep Navy (#0c264c), Sky Blue (#1890d7), Bandung Green (#0D7A4D), Gold (#fcb900)
  * =================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap');
-
 :root {
   --disdagin-navy: #0c264c;
   --disdagin-navy-dark: #081a35;
@@ -29,6 +27,7 @@ body {
   color: var(--disdagin-text);
   background-color: var(--disdagin-surface);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -77,6 +76,9 @@ ul#accordionSidebar.bg-gradient-primary {
   border-radius: 8px;
   margin: 2px 8px;
   transition: all 0.2s ease-in-out;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-dark .nav-item .nav-link i {
@@ -123,6 +125,7 @@ ul#accordionSidebar.bg-gradient-primary {
 
 .topbar .nav-item .nav-link {
   height: 4.5rem;
+  min-height: 44px;
 }
 
 .badge-role-admin {
@@ -146,14 +149,18 @@ ul#accordionSidebar.bg-gradient-primary {
 }
 
 /* -------------------------------------------------------------------
- * BUTTONS & ACCENTS
+ * BUTTONS & TOUCH TARGET ACCESSIBILITY
  * ------------------------------------------------------------------- */
+.btn {
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
 .btn-primary {
   background-color: var(--disdagin-navy) !important;
   border-color: var(--disdagin-navy) !important;
   color: #ffffff !important;
-  font-weight: 600;
-  transition: all 0.2s ease;
 }
 
 .btn-primary:hover, .btn-primary:focus {
@@ -213,8 +220,13 @@ ul#accordionSidebar.bg-gradient-primary {
 }
 
 /* -------------------------------------------------------------------
- * TABLES & BADGES
+ * RESPONSIVE TABLES & MOBILE POLISH
  * ------------------------------------------------------------------- */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+}
+
 .table th {
   background-color: #f1f5f9;
   color: #334155;
@@ -229,6 +241,28 @@ ul#accordionSidebar.bg-gradient-primary {
 .table td {
   vertical-align: middle;
   font-size: 0.88rem;
+}
+
+/* Mobile responsive padding helpers */
+@media (max-width: 575.98px) {
+  .container-fluid.px-5 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .card-body {
+    padding: 1rem;
+  }
+  .border-right-md {
+    border-right: none !important;
+    border-bottom: 1px solid var(--disdagin-border);
+    padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .border-right-md {
+    border-right: 1px solid var(--disdagin-border);
+  }
 }
 
 /* -------------------------------------------------------------------

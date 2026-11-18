@@ -4,16 +4,39 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Masuk ke SIPK - Dinas Perdagangan dan Perindustrian Kota Bandung">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c264c">
   <title>@yield('title', 'Masuk Sistem - SIPK DISDAGIN Kota Bandung')</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ asset('img/logo_kota_bandung.png') }}">
+  <!-- SEO & Canonical -->
+  <meta name="description" content="Masuk ke portal Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran (SIPK) Dinas Perdagangan dan Perindustrian Kota Bandung.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://paynote-web-flax.vercel.app/login">
 
-  <!-- Fonts & Icons -->
+  <!-- GEO Tags -->
+  <meta name="geo.region" content="ID-JB">
+  <meta name="geo.placename" content="Kota Bandung, Jawa Barat, Indonesia">
+  <meta name="geo.position" content="-6.8904;107.6098">
+  <meta name="ICBM" content="-6.8904, 107.6098">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://paynote-web-flax.vercel.app/login">
+  <meta property="og:title" content="Masuk Sistem - SIPK DISDAGIN Kota Bandung">
+  <meta property="og:description" content="Portal autentikasi resmi pegawai dan pejabat DISDAGIN Kota Bandung.">
+  <meta property="og:image" content="https://paynote-web-flax.vercel.app/img/logo_kota_bandung.png">
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo_kota_bandung.png') }}">
+
+  <!-- PageSpeed Preconnect Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -52,22 +75,22 @@
     .auth-sidebar {
       background: linear-gradient(180deg, #0c264c 0%, #081a35 100%);
       color: #ffffff;
-      padding: 48px 40px;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 40px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
     }
     .auth-form-side {
-      padding: 48px 40px;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 40px);
     }
     @media (max-width: 767.98px) {
       .auth-sidebar {
-        padding: 30px 24px;
+        padding: 24px 20px;
         text-align: center;
       }
       .auth-form-side {
-        padding: 30px 24px;
+        padding: 24px 20px;
       }
     }
   </style>

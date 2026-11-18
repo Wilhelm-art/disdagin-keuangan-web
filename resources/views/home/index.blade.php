@@ -1,6 +1,6 @@
 @extends('layouts.home')
 
-@section('title', 'SIPK DISDAGIN - Dinas Perdagangan dan Perindustrian Kota Bandung')
+@section('title', 'SIPK DISDAGIN Kota Bandung - Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran')
 
 @push('styles')
 <style>
@@ -11,7 +11,7 @@
     position: relative;
     background: linear-gradient(135deg, #081a35 0%, #0c264c 60%, #163e77 100%);
     color: #ffffff;
-    padding: 90px 0 80px;
+    padding: clamp(60px, 8vw, 100px) 0 clamp(50px, 6vw, 80px);
     overflow: hidden;
   }
   .hero-wrapper::before {
@@ -41,7 +41,7 @@
     margin-bottom: 20px;
   }
   .hero-title {
-    font-size: 2.85rem;
+    font-size: var(--fluid-h1);
     font-weight: 800;
     line-height: 1.18;
     letter-spacing: -0.02em;
@@ -52,7 +52,7 @@
     color: #fcb900;
   }
   .hero-lead {
-    font-size: 1.12rem;
+    font-size: var(--fluid-lead);
     color: #cbd5e1;
     line-height: 1.7;
     margin-bottom: 32px;
@@ -64,12 +64,14 @@
     font-weight: 800;
     font-size: 0.98rem;
     padding: 14px 28px;
+    min-height: 48px;
     border-radius: 50px;
     border: none;
     box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
   }
   .btn-hero-primary:hover {
@@ -84,11 +86,13 @@
     font-weight: 600;
     font-size: 0.95rem;
     padding: 14px 26px;
+    min-height: 48px;
     border-radius: 50px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
   }
   .btn-hero-outline:hover {
@@ -103,7 +107,7 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
-    padding: 30px;
+    padding: clamp(20px, 4vw, 32px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   }
 
@@ -126,6 +130,7 @@
   .metric-icon {
     width: 52px;
     height: 52px;
+    min-width: 52px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -137,7 +142,7 @@
    * SECTION STYLES
    * ------------------------------------------------------------------- */
   .section-pad {
-    padding: 80px 0;
+    padding: clamp(50px, 7vw, 85px) 0;
   }
   .section-tag {
     color: var(--disdagin-blue);
@@ -150,7 +155,7 @@
   }
   .section-heading {
     color: #0c264c;
-    font-size: 2.15rem;
+    font-size: var(--fluid-h2);
     font-weight: 800;
     line-height: 1.25;
     margin-bottom: 15px;
@@ -222,26 +227,47 @@
     border-color: var(--disdagin-blue);
   }
 
-  /* Workflow Steps */
-  .step-badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #0c264c;
-    color: #ffffff;
-    font-weight: 800;
+  /* FAQ Accordion */
+  .faq-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  .faq-card:hover {
+    border-color: #cbd5e1;
+  }
+  .faq-header-btn {
+    width: 100%;
+    text-align: left;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: #0c264c;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(12, 38, 76, 0.25);
+    justify-content: space-between;
+    min-height: 52px;
+  }
+  .faq-header-btn:focus {
+    outline: none;
+  }
+  .faq-body {
+    padding: 0 24px 20px;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.7;
   }
 
   /* CTA Strip */
   .cta-section {
     background: linear-gradient(135deg, #0c264c 0%, #081a35 100%);
     border-radius: 20px;
-    padding: 60px 40px;
+    padding: clamp(35px, 5vw, 60px) clamp(24px, 4vw, 40px);
     color: #ffffff;
     position: relative;
     overflow: hidden;
@@ -254,7 +280,7 @@
 {{-- ===================================================================
      HERO SECTION
      =================================================================== --}}
-<section class="hero-wrapper">
+<section class="hero-wrapper" aria-label="Hero Banner">
   <div class="container position-relative">
     <div class="row align-items-center">
       
@@ -268,31 +294,31 @@
           Sistem Pengelolaan Keuangan & <span>Realisasi Anggaran</span>
         </h1>
         <p class="hero-lead">
-          Platform perbendaharaan digital terpadu Dinas Perdagangan dan Perindustrian Kota Bandung. Mendukung efisiensi, akuntabilitas belanja daerah, dan pelaporan keuangan berbasis <em>Good Public Governance</em>.
+          Platform perbendaharaan digital terpadu Dinas Perdagangan dan Perindustrian Kota Bandung. Memfasilitasi efisiensi, akuntabilitas belanja daerah, dan pelaporan keuangan berbasis <em>Good Public Governance</em>.
         </p>
 
         <div class="d-flex flex-wrap gap-3 mt-4">
           @auth
-            <a href="{{ route('dashboard') }}" class="btn-hero-primary mr-3 mb-2">
+            <a href="{{ route('dashboard') }}" class="btn-hero-primary mr-sm-3 mb-3 w-100 w-sm-auto">
               <i class="fas fa-tachometer-alt"></i>
               Buka Dashboard Saya
             </a>
           @else
-            <a href="{{ route('login') }}" class="btn-hero-primary mr-3 mb-2">
+            <a href="{{ route('login') }}" class="btn-hero-primary mr-sm-3 mb-3 w-100 w-sm-auto">
               <i class="fas fa-lock"></i>
               Masuk Sistem Keuangan
             </a>
           @endauth
-          <a href="https://multisite.bandung.go.id/disdagin/" target="_blank" rel="noopener noreferrer" class="btn-hero-outline mb-2">
+          <a href="https://multisite.bandung.go.id/disdagin/" target="_blank" rel="noopener noreferrer" class="btn-hero-outline mb-3 w-100 w-sm-auto">
             <i class="fas fa-external-link-alt"></i>
             Portal Utama DISDAGIN
           </a>
         </div>
 
-        <div class="d-flex align-items-center mt-4 pt-2 text-white-50 small">
-          <span class="mr-3"><i class="fas fa-shield-alt text-success mr-1"></i>Server-side RBAC</span>
-          <span class="mr-3"><i class="fas fa-file-pdf text-danger mr-1"></i>Ekspor Laporan PDF & Excel</span>
-          <span><i class="fas fa-check-circle text-info mr-1"></i>Siap Audit BPK/Inspektorat</span>
+        <div class="d-flex flex-wrap align-items-center mt-3 pt-2 text-white-50 small">
+          <span class="mr-3 mb-2"><i class="fas fa-shield-alt text-success mr-1"></i>Server-side RBAC</span>
+          <span class="mr-3 mb-2"><i class="fas fa-file-pdf text-danger mr-1"></i>Ekspor Laporan PDF & Excel</span>
+          <span class="mb-2"><i class="fas fa-check-circle text-info mr-1"></i>Siap Audit BPK/Inspektorat</span>
         </div>
       </div>
 
@@ -300,11 +326,11 @@
       <div class="col-lg-5">
         <div class="hero-badge-card text-center">
           <div class="mb-4">
-            <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Kota Bandung" style="height: 110px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+            <img src="{{ asset('img/logo_kota_bandung.png') }}" alt="Logo Resmi Pemerintah Kota Bandung" width="110" height="110" style="height: 110px; width: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));" fetchpriority="high">
           </div>
-          <h4 class="text-white font-weight-bold mb-1" style="letter-spacing: 0.5px;">
+          <h2 class="h4 text-white font-weight-bold mb-1" style="letter-spacing: 0.5px;">
             DISDAGIN KOTA BANDUNG
-          </h4>
+          </h2>
           <p class="text-warning small font-weight-bold text-uppercase mb-3">
             Dinas Perdagangan dan Perindustrian
           </p>
@@ -324,8 +350,8 @@
               <div class="font-weight-bold text-white small">SAP Akuntansi Pemda</div>
             </div>
             <div class="col-6">
-              <div class="text-white-50 small">Siklus Anggaran</div>
-              <div class="font-weight-bold text-white small">Tahun Anggaran {{ date('Y') }}</div>
+              <div class="text-white-50 small">Tahun Anggaran</div>
+              <div class="font-weight-bold text-white small">Tahun {{ date('Y') }}</div>
             </div>
           </div>
         </div>
@@ -340,9 +366,9 @@
      =================================================================== --}}
 <div class="container">
   <div class="metrics-strip">
-    <div class="row text-center text-md-left">
+    <div class="row text-left">
       
-      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right">
+      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right-md">
         <div class="d-flex align-items-center">
           <div class="metric-icon bg-primary text-white mr-3">
             <i class="fas fa-wallet"></i>
@@ -354,7 +380,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right">
+      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right-md">
         <div class="d-flex align-items-center">
           <div class="metric-icon bg-success text-white mr-3">
             <i class="fas fa-exchange-alt"></i>
@@ -366,7 +392,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right">
+      <div class="col-lg-3 col-md-6 mb-3 mb-lg-0 border-right-md">
         <div class="d-flex align-items-center">
           <div class="metric-icon bg-info text-white mr-3">
             <i class="fas fa-file-invoice-dollar"></i>
@@ -397,7 +423,7 @@
 {{-- ===================================================================
      PILAR TATA KELOLA KEUANGAN (FEATURES)
      =================================================================== --}}
-<section id="pilar" class="section-pad">
+<section id="pilar" class="section-pad" aria-label="Pilar Tata Kelola Keuangan">
   <div class="container">
     <div class="text-center mb-5">
       <span class="section-tag">Kapabilitas Inti Sistem</span>
@@ -410,54 +436,54 @@
     <div class="row">
       <!-- Pilar 1 -->
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="pillar-card">
+        <article class="pillar-card">
           <div class="pillar-icon-box bg-light text-primary">
             <i class="fas fa-balance-scale"></i>
           </div>
-          <h5 class="font-weight-bold text-dark mb-2">Penetapan Pagu Anggaran</h5>
+          <h3 class="h5 font-weight-bold text-dark mb-2">Penetapan Pagu Anggaran</h3>
           <p class="text-muted small mb-0">
             Pengelolaan alokasi pagu belanja kegiatan dinas per mata anggaran, dilengkapi bar persentase realisasi otomatis.
           </p>
-        </div>
+        </article>
       </div>
 
       <!-- Pilar 2 -->
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="pillar-card">
+        <article class="pillar-card">
           <div class="pillar-icon-box bg-light text-success">
             <i class="fas fa-money-bill-wave"></i>
           </div>
-          <h5 class="font-weight-bold text-dark mb-2">Penatausahaan Kas Masuk</h5>
+          <h3 class="h5 font-weight-bold text-dark mb-2">Penatausahaan Kas Masuk</h3>
           <p class="text-muted small mb-0">
             Pencatatan pendapatan daerah, retribusi pasar, dan transfer kas dengan kategorisasi rinci dan validasi input ketat.
           </p>
-        </div>
+        </article>
       </div>
 
       <!-- Pilar 3 -->
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="pillar-card">
+        <article class="pillar-card">
           <div class="pillar-icon-box bg-light text-danger">
             <i class="fas fa-receipt"></i>
           </div>
-          <h5 class="font-weight-bold text-dark mb-2">Pengendalian Belanja Kas</h5>
+          <h3 class="h5 font-weight-bold text-dark mb-2">Pengendalian Belanja Kas</h3>
           <p class="text-muted small mb-0">
             Pencatatan bukti pengeluaran kas belanja modal dan operasional untuk mencegah defisit atau pelampauan pagu.
           </p>
-        </div>
+        </article>
       </div>
 
       <!-- Pilar 4 -->
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="pillar-card">
+        <article class="pillar-card">
           <div class="pillar-icon-box bg-light text-info">
             <i class="fas fa-file-contract"></i>
           </div>
-          <h5 class="font-weight-bold text-dark mb-2">Pelaporan & Ekspor Resmi</h5>
+          <h3 class="h5 font-weight-bold text-dark mb-2">Pelaporan & Ekspor Resmi</h3>
           <p class="text-muted small mb-0">
             Penerbitan rekapitulasi berkala berformat PDF dengan kop surat resmi kedinasan dan file Excel untuk kebutuhan audit BPK.
           </p>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -466,7 +492,7 @@
 {{-- ===================================================================
      TENTANG DISDAGIN & TUPOKSI
      =================================================================== --}}
-<section id="tentang" class="section-pad bg-light">
+<section id="tentang" class="section-pad bg-light" aria-label="Tentang DISDAGIN Kota Bandung">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4 mb-lg-0">
@@ -476,7 +502,7 @@
           Dinas Perdagangan dan Perindustrian (DISDAGIN) Kota Bandung mempunyai tugas pokok melaksanakan urusan pemerintahan daerah di bidang perdagangan, perindustrian, dan kemetrologian legal berdasarkan asas otonomi dan tugas pembantuan.
         </p>
         <p class="text-muted" style="line-height: 1.7;">
-          Dalam mendukung misi <em>Kota Bandung yang Unggul, Nyaman, Sejahtera dan Agamis</em>, tata kelola keuangan DISDAGIN senantiasa berpedoman pada prinsip integritas, kehati-hatian, serta transparansi publik.
+          Dalam mendukung visi Kota Bandung, tata kelola keuangan DISDAGIN senantiasa berpedoman pada prinsip integritas, kehati-hatian, serta akuntabilitas publik.
         </p>
         <div class="row mt-4">
           <div class="col-sm-6 mb-3">
@@ -510,10 +536,10 @@
         <div class="card border-0 shadow-lg p-4 bg-white" style="border-radius: 18px;">
           <div class="d-flex align-items-center mb-3">
             <div class="mr-3">
-              <img src="{{ asset('img/logo_disdagin_official.png') }}" alt="Logo DISDAGIN" style="max-height: 52px; width: auto;">
+              <img src="{{ asset('img/logo_disdagin_official.png') }}" alt="Logo Resmi Dinas Perdagangan dan Perindustrian Kota Bandung" width="160" height="45" loading="lazy" decoding="async" style="max-height: 52px; width: auto;">
             </div>
             <div>
-              <h6 class="font-weight-bold text-dark mb-0">Kantor Pelayanan Terpadu</h6>
+              <h3 class="h6 font-weight-bold text-dark mb-0">Kantor Pelayanan Terpadu</h3>
               <span class="text-muted small">Dinas Perdagangan dan Perindustrian</span>
             </div>
           </div>
@@ -523,15 +549,19 @@
           <ul class="list-group list-group-flush small">
             <li class="list-group-item px-0 d-flex justify-content-between">
               <span class="text-muted"><i class="fas fa-map-marker-alt text-danger mr-2"></i>Lokasi Kantor:</span>
-              <span class="font-weight-bold text-right">Jl. Tamansari No. 59, Bandung</span>
+              <span class="font-weight-bold text-right">Jl. Tamansari No. 59, Bandung 40132</span>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between">
               <span class="text-muted"><i class="fas fa-phone-alt text-success mr-2"></i>Kontak Kantor:</span>
-              <span class="font-weight-bold">(022) 2503254 / disdagin@bandung.go.id</span>
+              <span class="font-weight-bold">(022) 2503254</span>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between">
+              <span class="text-muted"><i class="fas fa-envelope text-info mr-2"></i>Email Resmi:</span>
+              <span class="font-weight-bold">disdagin@bandung.go.id</span>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between">
               <span class="text-muted"><i class="fas fa-globe text-primary mr-2"></i>Website Resmi:</span>
-              <a href="https://multisite.bandung.go.id/disdagin/" target="_blank" class="font-weight-bold text-primary">multisite.bandung.go.id/disdagin</a>
+              <a href="https://multisite.bandung.go.id/disdagin/" target="_blank" rel="noopener noreferrer" class="font-weight-bold text-primary">multisite.bandung.go.id/disdagin</a>
             </li>
           </ul>
         </div>
@@ -543,7 +573,7 @@
 {{-- ===================================================================
      LAYANAN PUBLIK TERPADU (DISDAGIN ECOSYSTEM)
      =================================================================== --}}
-<section id="layanan" class="section-pad">
+<section id="layanan" class="section-pad" aria-label="Ekosistem Layanan Publik">
   <div class="container">
     <div class="text-center mb-5">
       <span class="section-tag">Ekosistem Digital Kedinasan</span>
@@ -558,11 +588,11 @@
       <div class="col-lg-3 col-md-6 mb-4">
         <a href="https://arimbi.bandung.go.id/market" target="_blank" rel="noopener noreferrer" class="service-link-card">
           <div class="d-flex align-items-center mb-3">
-            <div class="rounded p-2 bg-warning-light text-warning mr-3" style="background: #fef3c7; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+            <div class="rounded p-2 text-warning mr-3" style="background: #fef3c7; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
               <i class="fas fa-shopping-basket"></i>
             </div>
             <div>
-              <h6 class="font-weight-bold text-dark mb-0">ARIMBI</h6>
+              <h3 class="h6 font-weight-bold text-dark mb-0">ARIMBI</h3>
               <span class="text-muted small">Harga Bahan Pokok</span>
             </div>
           </div>
@@ -580,7 +610,7 @@
               <i class="fas fa-tachometer-alt"></i>
             </div>
             <div>
-              <h6 class="font-weight-bold text-dark mb-0">Metrologi Legal</h6>
+              <h3 class="h6 font-weight-bold text-dark mb-0">Metrologi Legal</h3>
               <span class="text-muted small">Tera & Tera Ulang UTTP</span>
             </div>
           </div>
@@ -598,7 +628,7 @@
               <i class="fas fa-cogs"></i>
             </div>
             <div>
-              <h6 class="font-weight-bold text-dark mb-0">Balai Industri</h6>
+              <h3 class="h6 font-weight-bold text-dark mb-0">Balai Industri</h3>
               <span class="text-muted small">Fasilitasi Mesin IKM</span>
             </div>
           </div>
@@ -616,7 +646,7 @@
               <i class="fas fa-bullhorn"></i>
             </div>
             <div>
-              <h6 class="font-weight-bold text-dark mb-0">SP4N-LAPOR!</h6>
+              <h3 class="h6 font-weight-bold text-dark mb-0">SP4N-LAPOR!</h3>
               <span class="text-muted small">Pengaduan Masyarakat</span>
             </div>
           </div>
@@ -624,6 +654,93 @@
             Kanal aspirasi dan pelaporan resmi masyarakat atas pelayanan publik Pemerintah Kota Bandung.
           </p>
         </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- ===================================================================
+     FAQ SECTION (AEO & ANSWER ENGINE OPTIMIZATION)
+     Structured Questions & Direct Answers for Search & AI Engines
+     =================================================================== --}}
+<section id="faq" class="section-pad bg-light" aria-label="Pertanyaan Umum Seputar SIPK">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-tag">Pusat Informasi & Tanya Jawab</span>
+      <h2 class="section-heading">Pertanyaan Umum (FAQ)</h2>
+      <p class="section-desc">
+        Informasi seputar sistem penatausahaan keuangan dan layanan kedinasan DISDAGIN Kota Bandung.
+      </p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+
+        <!-- FAQ Item 1 -->
+        <div class="faq-card">
+          <button class="faq-header-btn" type="button" data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
+            <span>Apa itu SIPK DISDAGIN Kota Bandung?</span>
+            <i class="fas fa-chevron-down text-muted"></i>
+          </button>
+          <div id="faq1" class="collapse show">
+            <div class="faq-body">
+              <strong>SIPK DISDAGIN</strong> adalah Sistem Informasi Pengelolaan Keuangan & Realisasi Anggaran terpadu di lingkungan Dinas Perdagangan dan Perindustrian Pemerintah Kota Bandung. Sistem ini memfasilitasi pengawasan alokasi pagu kegiatan APBD, penatausahaan arus kas pemasukan retribusi, pengendalian belanja operasional, dan penerbitan laporan keuangan standar akuntansi pemerintahan (SAP).
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-card">
+          <button class="faq-header-btn collapsed" type="button" data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
+            <span>Apa fungsi dan tugas pokok DISDAGIN Kota Bandung?</span>
+            <i class="fas fa-chevron-down text-muted"></i>
+          </button>
+          <div id="faq2" class="collapse">
+            <div class="faq-body">
+              DISDAGIN Kota Bandung bertugas melaksanakan urusan pemerintahan daerah di bidang perdagangan dalam negeri, pengembangan ekspor luar negeri, stabilisasi harga kebutuhan bahan pokok, pengawasan kemetrologian legal (tera UTTP), dan pemberdayaan Industri Kecil dan Menengah (IKM) di wilayah Kota Bandung.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-card">
+          <button class="faq-header-btn collapsed" type="button" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
+            <span>Bagaimana cara mengecek harga kebutuhan bahan pokok harian di Kota Bandung?</span>
+            <i class="fas fa-chevron-down text-muted"></i>
+          </button>
+          <div id="faq3" class="collapse">
+            <div class="faq-body">
+              Masyarakat dapat memantau data harga kebutuhan bahan pokok masyarakat harian di berbagai pasar rakyat Kota Bandung melalui aplikasi resmi <strong>ARIMBI (Aplikasi Real Time Informasi Bahan Pokok)</strong> yang dikelola DISDAGIN di portal <a href="https://arimbi.bandung.go.id/market" target="_blank" rel="noopener noreferrer" class="text-primary font-weight-bold">arimbi.bandung.go.id/market</a>.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-card">
+          <button class="faq-header-btn collapsed" type="button" data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4">
+            <span>Di mana lokasi alamat kantor dan kontak resmi DISDAGIN Kota Bandung?</span>
+            <i class="fas fa-chevron-down text-muted"></i>
+          </button>
+          <div id="faq4" class="collapse">
+            <div class="faq-body">
+              Kantor Dinas Perdagangan dan Perindustrian Kota Bandung beralamat di <strong>Jl. Tamansari No. 59, Kelurahan Lebak Siliwangi, Kecamatan Coblong, Kota Bandung, Jawa Barat 40132</strong>. Nomor telepon layanan: <strong>(022) 2503254</strong> dan email resmi: <strong>disdagin@bandung.go.id</strong>. Jam pelayanan: Senin – Jumat pukul 08:00 – 16:00 WIB.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-card">
+          <button class="faq-header-btn collapsed" type="button" data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5">
+            <span>Siapa saja yang memiliki hak akses ke dalam aplikasi SIPK DISDAGIN?</span>
+            <i class="fas fa-chevron-down text-muted"></i>
+          </button>
+          <div id="faq5" class="collapse">
+            <div class="faq-body">
+              Sistem SIPK dilindungi oleh kontrol akses berbasis peran (RBAC) pada sisi server. Hak akses penuh untuk mengelola data master, anggaran, kas, dan akun pegawai dimiliki oleh <strong>Administrator Teknis / PPK Keuangan</strong>, sedangkan <strong>Kepala Dinas</strong> memiliki hak akses eksekutif untuk monitoring statistik dan pengunduhan laporan akuntabilitas berkala.
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -639,20 +756,20 @@
         <span class="badge badge-warning text-dark font-weight-bold mb-2 px-3 py-1 text-uppercase" style="font-size: 0.75rem;">
           Portal Aparatur Kedinasan
         </span>
-        <h3 class="font-weight-bold text-white mb-2">
+        <h2 class="h3 font-weight-bold text-white mb-2">
           Mulai Penatausahaan Keuangan & Realisasi Hari Ini
-        </h3>
+        </h2>
         <p class="text-white-50 mb-0">
           Masuk ke dashboard untuk mengelola mata anggaran, pembukuan kas pemasukan retribusi, belanja dinas, dan pengunduhan laporan berkala.
         </p>
       </div>
       <div class="col-lg-4 text-lg-right">
         @auth
-          <a href="{{ route('dashboard') }}" class="btn btn-warning btn-lg font-weight-bold text-dark px-4 py-3 shadow-lg">
+          <a href="{{ route('dashboard') }}" class="btn btn-warning btn-lg font-weight-bold text-dark px-4 py-3 shadow-lg w-100 w-lg-auto" style="min-height: 48px;">
             <i class="fas fa-tachometer-alt mr-2"></i>Buka Dashboard
           </a>
         @else
-          <a href="{{ route('login') }}" class="btn btn-warning btn-lg font-weight-bold text-dark px-4 py-3 shadow-lg">
+          <a href="{{ route('login') }}" class="btn btn-warning btn-lg font-weight-bold text-dark px-4 py-3 shadow-lg w-100 w-lg-auto" style="min-height: 48px;">
             <i class="fas fa-sign-in-alt mr-2"></i>Masuk ke SIPK
           </a>
         @endauth
