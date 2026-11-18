@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.git
+.github
+tests
+database/backups
+disdagin_clean.sql
+disdagin_db.sql
+paynote_db.sql
+start-disdagin.bat
+online-disdagin.bat
+scratch*
+trigger*
+cloudflared.exe

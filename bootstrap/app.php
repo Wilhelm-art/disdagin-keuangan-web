@@ -15,6 +15,18 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+// Setup writable storage path for Vercel serverless environment
+if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || env('VERCEL') || env('APP_ENV') === 'production') {
+    $storagePath = '/tmp/storage';
+    $app->useStoragePath($storagePath);
+    foreach (['/framework/views', '/framework/cache/data', '/framework/sessions', '/logs'] as $subdir) {
+        $path = $storagePath . $subdir;
+        if (!is_dir($path)) {
+            @mkdir($path, 0777, true);
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
